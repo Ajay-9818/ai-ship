@@ -117,6 +117,7 @@ ai-use-website/
 - HTML 输出中默认包含完整 prompt，使用 `<details>` / `<summary>` 作为无 JS 降级方案，前端 JS 仅负责动画和复制按钮反馈
 - 保持最小化引用：编译过程中避免复杂的 css 引用，只获取用到的 css 组件
 - 图标使用内联 SVG sprite 或构建时合并的符号集，避免重复请求
+- `src/_data/toolIcons.js` 维护工具 slug → SVG symbol 映射，Markdown 中的 `tools` 字段使用 slug；构建阶段通过 Eleventy Shortcode 注入 `<use xlink:href="#icon-slug">`
 
 #### 分页功能
 - 通过 Eleventy 内置 `pagination` 功能按日期排序后，每页显示 20 个卡片并生成 `/page/N/`
@@ -154,7 +155,7 @@ ai-use-website/
 **核心工具链：**
 - **静态站点生成器**：Eleventy (11ty)
 - **样式策略**：原生 CSS + PostCSS/Tailwind JIT 按需输出
-- **图标库**：Lobe Icons
+- **图标库**：Lobe Icons（按需下载 SVG，构建时生成 sprite）
 - **部署平台**：Netlify
 
 **优势：**
