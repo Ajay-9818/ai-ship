@@ -16,7 +16,7 @@
   --shadow-md: 0 22px 36px rgba(190, 63, 72, 0.08);
 }
 
-[data-theme='dark'] {
+:root[data-theme='dark'] {
   color-scheme: dark;
   --bg: rgb(27, 27, 30);
   --fg: rgb(175, 176, 177);
@@ -68,7 +68,8 @@ a {
 
 a:hover,
 a:focus {
-  text-decoration: underline;
+  color: #c24646;
+  text-decoration: none;
 }
 
 .container {
@@ -78,7 +79,7 @@ a:focus {
 }
 
 .site-header {
-  padding: clamp(12rem, 20vw, 14rem) 0 clamp(1.5rem, 4vw, 2.5rem);
+  padding: clamp(14em, 22vw, 16rem) 0 clamp(1.5rem, 4vw, 2.5rem);
   position: relative;
 }
 
@@ -151,7 +152,7 @@ a:focus {
   padding: 0.5rem 0.75rem;
   border: none;
   background: transparent;
-  color: var(--fg);
+  color: inherit;
   border-radius: 4px;
   cursor: pointer;
   text-align: left;
@@ -415,7 +416,7 @@ a:focus {
   border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
-[data-theme='dark'] .case-card__prompt-well {
+:root[data-theme='dark'] .case-card__prompt-well {
   background: rgba(255, 255, 255, 0.05);
   border-color: rgba(255, 255, 255, 0.1);
 }
@@ -484,7 +485,7 @@ a:focus {
   margin: 0;
 }
 
-[data-theme='dark'] .case-card__prompt pre {
+:root[data-theme='dark'] .case-card__prompt pre {
   background: rgba(148, 163, 184, 0.1);
 }
 
