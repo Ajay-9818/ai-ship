@@ -1,0 +1,5 @@
+{% macro render(pagination, lang) %}
+  {% if pagination.hrefs and pagination.hrefs | length > 1 %}
+    {{ paginationNav(pagination, lang) | safe }}
+  {% endif %}
+{% endmacro %}

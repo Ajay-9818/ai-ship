@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+{% set currentLang = page.lang or site.language or 'zh' %}
+<html lang="{{ currentLang }}" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if title %}{{ title }} · {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+  <meta name="description" content="{{ description or site.description }}">
+  {% include 'partials/meta.njk' %}
+  <link rel="preload" href="/assets/main.css" as="style">
+  <link rel="stylesheet" href="/assets/main.css">
+  <script>document.documentElement.dataset.theme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');</script>
+</head>
+<body>
+  {% include 'sprite.svg' %}
+  <header class="site-header" id="about">
+    <div class="container">
+      <h1 class="site-title">{{ site.title }}</h1>
+      <p class="site-description">{{ site.description }}</p>
+      <nav class="site-nav" aria-label="主导航">
+        <ul>
+          {% for item in navigation %}
+            <li><a href="{{ item.url }}">{{ item.key | t(currentLang) }}</a></li>
+          {% endfor %}
+          <li><button type="button" class="theme-toggle" data-theme-toggle data-theme-label-dark="{{ 'nav.theme.light' | t(currentLang) }}" data-theme-label-light="{{ 'nav.theme.dark' | t(currentLang) }}">{{ 'nav.theme.dark' | t(currentLang) }}</button></li>
+        </ul>
+      </nav>
+      <div class="lang-switch" role="group" aria-label="Language">
+        {% for lang in supportedLangs %}
+          {% set path = '/' %}
+          {% if lang != 'zh' %}
+            {% set path = '/' ~ lang ~ '/' %}
+          {% endif %}
+          <a href="{{ path }}" class="lang-switch__btn{% if lang == currentLang %} is-active{% endif %}">{{ lang | upper }}</a>
+        {% endfor %}
+      </div>
+    </div>
+  </header>
+
+  <main class="site-main">
+    {{ content | safe }}
+  </main>
+
+  <footer class="site-footer" id="support">
+    <div class="container">
+      <p>© {{ buildTime | year }} {{ site.title }}</p>
+      <p>构建方式：Eleventy 静态站点 + 原生前端。</p>
+    </div>
+  </footer>
+
+  <script src="/assets/app.js" type="module" defer></script>
+</body>
+</html>

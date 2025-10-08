@@ -1,0 +1,58 @@
+{% macro caseCard(item, lang='zh') %}
+<article class="case-card" id="case-{{ item.fileSlug }}" data-category="{{ item.data.category | default('其他') }}">
+  <header class="case-card__header">
+    <h2 class="case-card__title">{{ item.data.title }}</h2>
+    {% if item.data.tools %}
+    <ul class="case-card__tools">
+      {% for tool in item.data.tools %}
+        {% set slug = tool %}
+        {% set label = item.data.tool_labels and item.data.tool_labels[tool] or tool %}
+        {% set icon = toolIcons[slug] or toolIcons.__default %}
+        <li>
+          <svg class="tool-icon" aria-hidden="true"><use href="#{{ icon.symbolId }}" /></svg>
+          <span class="case-card__tool-label">{{ label }}</span>
+        </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </header>
+
+  {% set locale = 'zh-CN' %}
+  {% if lang == 'en' %}
+    {% set locale = 'en-US' %}
+  {% elif lang == 'jp' %}
+    {% set locale = 'ja-JP' %}
+  {% endif %}
+  <div class="case-card__meta">
+    <time datetime="{{ item.date | dateIso }}">{{ item.date | readableDate(locale) }}</time>
+    <span class="case-card__category">{{ item.data.category }}</span>
+  </div>
+
+  <div class="case-card__content">
+    {{ item.templateContent | safe }}
+  </div>
+
+  {% if item.data.action_button and item.data.action_button.url %}
+  <p class="case-card__cta">
+    <a class="btn" href="{{ item.data.action_button.url }}" target="_blank" rel="noopener">{{ item.data.action_button.text or '查看详情' }}</a>
+  </p>
+  {% endif %}
+
+  {% if item.data.prompt %}
+  <details class="case-card__prompt" data-card-id="{{ item.fileSlug }}">
+    <summary>
+      <span>{{ 'prompt.view' | t(lang) }}</span>
+      <button
+        type="button"
+        class="prompt-copy"
+        data-copy-source='{{ item.data.prompt | dump }}'
+        data-copy-label="{{ 'prompt.copy' | t(lang) }}"
+        data-copy-success="{{ 'prompt.copied' | t(lang) }}"
+        data-copy-failed="{{ 'prompt.failed' | t(lang) }}"
+      >{{ 'prompt.copy' | t(lang) }}</button>
+    </summary>
+    <pre><code>{{ item.data.prompt | escape }}</code></pre>
+  </details>
+  {% endif %}
+</article>
+{% endmacro %}

@@ -1,0 +1,27 @@
+---
+layout: layouts/base.njk
+pagination:
+  data: collections.cases
+  size: 20
+  alias: cases
+  reverse: false
+permalink: "{% if pagination.pageNumber == 0 %}/index.html{% else %}/page/{{ pagination.pageNumber + 1 }}/index.html{% endif %}"
+lang: zh
+---
+{% set currentLang = page.lang or 'zh' %}
+{% from "components/card.njk" import caseCard %}
+{% from "components/pagination.njk" import render as renderPagination %}
+
+<section class="case-list container" aria-label="AI 使用案例">
+  {% if cases and cases | length %}
+    <div class="case-grid">
+      {% for item in cases %}
+        {{ caseCard(item, currentLang) | safe }}
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="empty-state">{{ 'empty' | t(currentLang) }}</p>
+  {% endif %}
+
+  {{ renderPagination(pagination, currentLang) | safe }}
+</section>

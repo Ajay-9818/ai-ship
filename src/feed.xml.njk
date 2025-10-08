@@ -1,0 +1,24 @@
+---
+permalink: /feed.xml
+layout: null
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>{{ site.title }}</title>
+    <link>{{ site.url }}/</link>
+    <description>{{ site.description }}</description>
+    <language>{{ site.locale or 'zh-CN' }}</language>
+    <lastBuildDate>{{ buildTime | readableDate('en-US') }}</lastBuildDate>
+    {% for item in collections.cases %}
+    <item>
+      <title>{{ item.data.title }}</title>
+      <link>{{ site.url }}{{ item.url }}</link>
+      <guid>{{ site.url }}{{ item.url }}</guid>
+      <pubDate>{{ item.date | readableDate('en-US') }}</pubDate>
+      <description><![CDATA[{{ item.templateContent | safe }}]]></description>
+    </item>
+    {% endfor %}
+  </channel>
+</rss>

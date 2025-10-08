@@ -1,0 +1,33 @@
+{% set canonicalUrl = site.url + page.url %}
+<link rel="canonical" href="{{ canonicalUrl }}">
+<meta name="theme-color" content="{{ site.themeColor or '#111827' }}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{ title or site.title }}">
+<meta property="og:description" content="{{ description or site.description }}">
+<meta property="og:url" content="{{ canonicalUrl }}">
+{% if site.ogImage %}
+<meta property="og:image" content="{{ site.url }}{{ site.ogImage }}">
+{% endif %}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ title or site.title }}">
+<meta name="twitter:description" content="{{ description or site.description }}">
+{% if site.social.twitter %}
+<meta name="twitter:site" content="{{ site.social.twitter }}">
+{% endif %}
+{% for lang in supportedLangs %}
+  {% set href = site.url ~ '/' %}
+  {% if lang != 'zh' %}
+    {% set href = site.url ~ '/' ~ lang ~ '/' %}
+  {% endif %}
+  <link rel="alternate" hreflang="{{ lang }}" href="{{ href }}">
+{% endfor %}
+<script type="application/ld+json">
+{{ {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": title or site.title,
+  "description": description or site.description,
+  "url": canonicalUrl,
+  "inLanguage": site.locale or 'zh-CN'
+} | dump(2) | safe }}
+</script>

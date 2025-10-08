@@ -1,0 +1,10 @@
+[
+  {
+    "key": "nav.about",
+    "url": "#about"
+  },
+  {
+    "key": "nav.support",
+    "url": "#support"
+  }
+]

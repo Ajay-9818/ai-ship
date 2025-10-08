@@ -1,0 +1,33 @@
+# Node / npm
+node_modules/
+package-lock.json
+npm-debug.log*
+npm-error.log*
+
+# Build output
+public/
+
+# Generated assets
+src/_includes/sprite.svg
+src/static/assets/
+
+# Local tooling
+.DS_Store
+.env
+.env.*
+
+# Logs & coverage
+*.log
+coverage/
+
+# Editor folders
+.vscode/
+.idea/
+*.swp
+
+# Cache
+.cache/
+.eslintcache
+
+# Browserslist update DB
+.browserslistrc
