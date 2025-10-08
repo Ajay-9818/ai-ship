@@ -77,6 +77,93 @@ a:focus {
   position: relative;
 }
 
+.site-header__top {
+  position: absolute;
+  top: clamp(1.5rem, 3vw, 2rem);
+  right: clamp(1rem, 3vw, 2rem);
+  z-index: 10;
+}
+
+.site-controls {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.control-group {
+  position: relative;
+}
+
+.control-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--fg);
+  cursor: pointer;
+  transition: all 160ms ease;
+}
+
+.control-btn:hover,
+.control-btn:focus {
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.control-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+}
+
+.control-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 0.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  display: none;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 120px;
+  z-index: 20;
+}
+
+.control-menu.is-open {
+  display: flex;
+}
+
+.menu-item {
+  padding: 0.5rem 0.75rem;
+  border: none;
+  background: transparent;
+  color: var(--fg);
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 160ms ease;
+}
+
+.menu-item:hover,
+.menu-item:focus {
+  background: var(--accent);
+  color: #fff;
+}
+
+.menu-item.is-active {
+  background: var(--accent);
+  color: #fff;
+}
+
 .site-title {
   font-size: clamp(2.5rem, 4vw, 3.6rem);
   margin: 0 0 1rem 0;

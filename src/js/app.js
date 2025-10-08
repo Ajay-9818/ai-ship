@@ -124,31 +124,101 @@ const applyTheme = (theme) => {
   localStorage.setItem('theme', theme);
 };
 
-const initTheme = () => {
-  const stored = localStorage.getItem('theme');
+const initControls = () => {
+  // 初始化主题控制
+  const storedTheme = localStorage.getItem('theme');
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const theme = stored || (prefersDark ? 'dark' : 'light');
-  applyTheme(theme);
+  const currentTheme = storedTheme || (prefersDark ? 'dark' : 'light');
 
-  const toggle = document.querySelector('[data-theme-toggle]');
-  if (!toggle) return;
-  const labels = {
-    dark: toggle.dataset.themeLabelDark || '切换为浅色',
-    light: toggle.dataset.themeLabelLight || '切换为深色'
-  };
-  toggle.textContent = theme === 'dark' ? labels.dark : labels.light;
-  toggle.addEventListener('click', () => {
-    const current = document.documentElement.dataset.theme;
-    const next = current === 'dark' ? 'light' : 'dark';
-    applyTheme(next);
-    toggle.textContent = next === 'dark' ? labels.dark : labels.light;
+  // 更新主题菜单状态
+  const themeMenu = document.querySelector('[data-menu="theme"]');
+  if (themeMenu) {
+    const activeItem = themeMenu.querySelector(`[data-theme="${storedTheme || 'auto'}"]`);
+    if (activeItem) {
+      activeItem.classList.add('is-active');
+    }
+  }
+
+  // 主题菜单点击事件
+  document.querySelectorAll('[data-theme]').forEach((item) => {
+    item.addEventListener('click', () => {
+      const theme = item.dataset.theme;
+
+      // 移除所有主题菜单项的激活状态
+      document.querySelectorAll('[data-theme]').forEach(el => {
+        el.classList.remove('is-active');
+      });
+
+      // 设置当前项为激活状态
+      item.classList.add('is-active');
+
+      if (theme === 'auto') {
+        localStorage.removeItem('theme');
+        const autoTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        applyTheme(autoTheme);
+      } else {
+        localStorage.setItem('theme', theme);
+        applyTheme(theme);
+      }
+    });
+  });
+
+  // 语言菜单点击事件
+  document.querySelectorAll('[data-lang]').forEach((item) => {
+    item.addEventListener('click', () => {
+      const lang = item.dataset.lang;
+
+      // 移除所有语言菜单项的激活状态
+      document.querySelectorAll('[data-lang]').forEach(el => {
+        el.classList.remove('is-active');
+      });
+
+      // 设置当前项为激活状态
+      item.classList.add('is-active');
+
+      // 跳转到对应语言页面
+      if (lang === 'zh') {
+        window.location.href = '/';
+      } else {
+        window.location.href = `/${lang}/`;
+      }
+    });
+  });
+
+  // 关闭菜单当点击外部
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.control-group')) {
+      document.querySelectorAll('.control-menu').forEach(menu => {
+        menu.classList.remove('is-open');
+      });
+    }
+  });
+
+  // 控制按钮点击事件
+  document.querySelectorAll('.control-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const controlType = btn.dataset.control;
+      const menu = document.querySelector(`[data-menu="${controlType}"]`);
+
+      // 切换菜单显示
+      if (menu) {
+        const isOpen = menu.classList.contains('is-open');
+        document.querySelectorAll('.control-menu').forEach(m => {
+          m.classList.remove('is-open');
+        });
+        if (!isOpen) {
+          menu.classList.add('is-open');
+        }
+      }
+    });
   });
 };
 
 const init = () => {
   bindPromptDetails();
   bindPagination();
-  initTheme();
+  initControls();
 };
 
 document.addEventListener('DOMContentLoaded', init);

@@ -12,6 +12,30 @@
   <script>document.documentElement.dataset.theme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');</script>
 </head>
 <body>
+    <div class="site-header__top">
+      <div class="site-controls">
+        <div class="control-group">
+        <button type="button" class="control-btn" data-control="theme" aria-label="切换主题">
+            <svg class="control-icon" aria-hidden="true"><use href="#icon-palette" /></svg>
+        </button>
+        <div class="control-menu" data-menu="theme">
+            <button type="button" class="menu-item" data-theme="light">浅色</button>
+            <button type="button" class="menu-item" data-theme="dark">深色</button>
+            <button type="button" class="menu-item" data-theme="auto">跟随系统</button>
+        </div>
+        </div>
+        <div class="control-group">
+        <button type="button" class="control-btn" data-control="language" aria-label="切换语言">
+            <svg class="control-icon" aria-hidden="true"><use href="#icon-languages" /></svg>
+        </button>
+        <div class="control-menu" data-menu="language">
+            <button type="button" class="menu-item" data-lang="zh">中文</button>
+            <button type="button" class="menu-item" data-lang="en">English</button>
+            <button type="button" class="menu-item" data-lang="jp">日本語</button>
+        </div>
+        </div>
+      </div>
+    </div>
   {% include 'sprite.svg' %}
   <header class="site-header" id="about">
     <div class="container">
@@ -22,18 +46,8 @@
           {% for item in navigation %}
             <li><a href="{{ item.url }}">{{ item.key | t(currentLang) }}</a></li>
           {% endfor %}
-          <li><button type="button" class="theme-toggle" data-theme-toggle data-theme-label-dark="{{ 'nav.theme.light' | t(currentLang) }}" data-theme-label-light="{{ 'nav.theme.dark' | t(currentLang) }}">{{ 'nav.theme.dark' | t(currentLang) }}</button></li>
         </ul>
       </nav>
-      <div class="lang-switch" role="group" aria-label="Language">
-        {% for lang in supportedLangs %}
-          {% set path = '/' %}
-          {% if lang != 'zh' %}
-            {% set path = '/' ~ lang ~ '/' %}
-          {% endif %}
-          <a href="{{ path }}" class="lang-switch__btn{% if lang == currentLang %} is-active{% endif %}">{{ lang | upper }}</a>
-        {% endfor %}
-      </div>
     </div>
   </header>
 
