@@ -1,0 +1,37 @@
+# Todo List
+
+- [] 确认项目 Node.js 版本并初始化 `package.json`，安装基础依赖：`@11ty/eleventy`、`postcss`、`autoprefixer`、`tailwindcss`（JIT 模式）、`npm-run-all`、`svgstore` 等。
+- [] 按计划创建目录结构：`src/_data`、`src/_includes`、`src/articles`、`src/css`、`src/js`、`src/icons`、`public` 等，并添加 `.eleventyignore`（如需）。
+- [] 在 `eleventy.config.js` 中配置输入输出目录、静态复制规则、全局数据目录，并定义 `cases` Collection（按 Front Matter `date` 排序），启用分页（每页 20 项）与 `/page/N/` 路由。
+- [] 在 `eleventy.config.js` 中注册短代码：用于渲染 SVG 图标、格式化日期、生成分页链接；同时设置 Markdown-It 插件（如需支持更多标记）。
+- [] 准备站点元数据：创建 `src/_data/site.json`（标题、描述、社交链接、Open Graph 配置）和 `src/_data/navigation.json`（导航或打赏信息）。
+- [] 维护工具图标映射：
+   - 将所需 Lobe Icons SVG 下载到 `src/icons/raw/`。
+   - 新增构建脚本使用 `svgstore`（或 Node 脚本）合并生成 `src/_includes/sprite.svg`。
+   - 在 `src/_data/toolIcons.js` 建立工具 slug → sprite symbol ID 映射，提供缺省图标。
+- [] 创建基础模板：
+   - `_includes/layouts/base.njk` 处理 `<head>`、全局样式/脚本、页脚。
+   - `_includes/components/card.njk` 渲染单个案例卡片，包含 `<details>`、工具图标短代码、操作按钮。
+   - `_includes/components/pagination.njk` 负责上一页/下一页与页码显示。
+- [] 编写主页 `src/index.njk`，引用 `cases` Collection，并应用分页模板生成 `index.html` 与 `/page/N/` 页面。
+- [] 在 `src/articles/` 编写至少一篇示例 Markdown（含 Front Matter 与正文），验证 Eleventy 集成是否正确渲染卡片。
+- [] 实现样式体系：
+    - 在 `src/css/style.css` 定义 CSS 自定义属性、排版、栅格和卡片样式。
+    - 支持亮/暗主题变量，默认遵循 `prefers-color-scheme`。
+    - （如使用 Tailwind）编写 `tailwind.config.js` 和 `postcss.config.cjs`，限制扫描范围与 safelist。
+- [] 在 `src/js/app.js` 实现交互：`<details>` 增强动画、复制按钮（Clipboard API + textarea 回退）、分页滚动复位、主题切换偏好存储。
+- [] 通过 `package.json` 脚本串联构建流程：`npm run dev`（并发 Eleventy + CSS watch）、`npm run build`（清理输出、生成 sprite、运行 PostCSS、构建 Eleventy）。
+- [] 配置 SEO 与可访问性：
+    - `_includes/partials/meta.njk` 输出基础 `<meta>`、Open Graph、Twitter Card。
+    - 生成 `sitemap.xml`（Eleventy 插件或自编模板）和 RSS/JSON Feed。
+    - 添加结构化数据 `<script type="application/ld+json">`。
+- [] 规划多语言基础：
+    - 准备语言子目录结构（`src/articles/zh/`、`src/articles/en/` 等）。
+    - 引入 `eleventy-plugin-i18n`，定义翻译字典与 `hreflang` 链接短代码。
+    - 模板提供语言切换组件，必要时实现基于 `Accept-Language` 的提示。
+- [] 完成暗色主题切换：实现按钮 UI、数据属性切换、`localStorage` 持久化，确保构建后的 CSS 已包含双主题变量。
+- [] 添加内容工具：`npm run lint`（可选，例如 Stylelint/ESLint）、`npm run format`（Prettier），以及 Markdown lint 配置。
+- [] 在仓库根目录更新 `README.md`，说明项目目标、开发流程、内容编辑方式及部署步骤。
+- [] 设置部署：编写 Netlify 配置（`netlify.toml` 或仪表盘设置），指定 `npm run build` 与 `public/` 为发布目录；配置环境变量、自动化预览。
+- [] 最后进行端到端检查：运行 `npm run build`，手动审阅输出 HTML/CSS/JS，测试分页、提示、SEO 标签和图标映射是否正常。
+- [] （可选）为后续迭代列出 backlog：多语言内容填充、更多图标、性能优化（如图片懒加载、预渲染），记录在 issue 或项目看板中。
