@@ -84,9 +84,19 @@ const copyPrompt = async (button) => {
 };
 
 const bindPromptDetails = () => {
-  document.querySelectorAll('.case-card__prompt').forEach((details) => {
-    details.addEventListener('toggle', () => {
-      details.classList.toggle('is-open', details.open);
+  // 同步两个details元素的状态
+  document.querySelectorAll('.case-card__prompt-summary-only').forEach((summaryOnly) => {
+    const cardId = summaryOnly.dataset.cardId;
+    const fullDetails = document.querySelector(`.case-card__prompt-full[data-card-id="${cardId}"]`);
+
+    if (!fullDetails) return;
+
+    summaryOnly.addEventListener('toggle', () => {
+      if (summaryOnly.open) {
+        fullDetails.classList.add('is-open');
+      } else {
+        fullDetails.classList.remove('is-open');
+      }
     });
   });
 

@@ -16,7 +16,7 @@ function translate(key, lang = 'zh') {
   try {
     const dict = require('./src/_data/i18n.json');
     const target = dict[lang] || dict.zh || {};
-    return key.split('.').reduce((acc, part) => (acc && acc[part] !== undefined ? acc[part] : undefined), target) || key;
+    return target[key] !== undefined ? target[key] : key;
   } catch (error) {
     return key;
   }
