@@ -1,6 +1,8 @@
 const copyPrompt = async (button) => {
+  if (!button) return;
   const payload = button.dataset.copySource;
   if (!payload) return;
+
   let text = '';
   try {
     text = JSON.parse(payload);
@@ -8,24 +10,56 @@ const copyPrompt = async (button) => {
     text = payload;
   }
 
-  const getLabel = (state) => {
-    if (state === 'success') return button.dataset.copySuccess || '已复制';
-    if (state === 'failed') return button.dataset.copyFailed || '复制失败';
-    return button.dataset.copyLabel || button.textContent || '复制';
+  const labelDefault = button.dataset.copyLabel || '复制';
+  const labelSuccess = button.dataset.copySuccess || '已复制';
+  const labelFailed = button.dataset.copyFailed || '复制失败';
+  const hiddenLabel = button.querySelector('.visually-hidden');
+
+  const updateLabel = (label) => {
+    button.setAttribute('aria-label', label);
+    if (hiddenLabel) {
+      hiddenLabel.textContent = label;
+    }
   };
 
-  const reset = (state) => {
-    button.dataset.originalLabel = button.dataset.originalLabel || getLabel();
-    button.textContent = getLabel(state);
-    setTimeout(() => {
-      button.textContent = button.dataset.originalLabel;
+  const clearTimer = () => {
+    if (button._copyTimer) {
+      clearTimeout(button._copyTimer);
+      button._copyTimer = null;
+    }
+  };
+
+  const scheduleReset = () => {
+    clearTimer();
+    button._copyTimer = setTimeout(() => {
+      button.classList.remove('is-success', 'is-failed');
+      updateLabel(labelDefault);
+      button._copyTimer = null;
     }, 1800);
+  };
+
+  clearTimer();
+  button.classList.remove('is-success', 'is-failed');
+  updateLabel(labelDefault);
+
+  const handleSuccess = () => {
+    button.classList.add('is-success');
+    button.classList.remove('is-failed');
+    updateLabel(labelSuccess);
+    scheduleReset();
+  };
+
+  const handleFailure = () => {
+    button.classList.add('is-failed');
+    button.classList.remove('is-success');
+    updateLabel(labelFailed);
+    scheduleReset();
   };
 
   if (navigator.clipboard?.writeText) {
     try {
       await navigator.clipboard.writeText(text);
-      reset('success');
+      handleSuccess();
       return;
     } catch (error) {
       console.warn('Clipboard API not available, fallback in use.', error);
@@ -41,10 +75,10 @@ const copyPrompt = async (button) => {
   textarea.select();
   try {
     document.execCommand('copy');
-    reset('success');
+    handleSuccess();
   } catch (error) {
     console.error('Copy failed', error);
-    reset('failed');
+    handleFailure();
   }
   document.body.removeChild(textarea);
 };
