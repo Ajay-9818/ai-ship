@@ -55,7 +55,7 @@ a:focus {
 }
 
 .container {
-  width: min(1100px, 92vw);
+  width: min(1180px, 94vw);
   margin: 0 auto;
   padding: 0 clamp(1rem, 3vw, 2rem);
 }
@@ -126,8 +126,14 @@ a:focus {
 
 .case-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: 1fr;
   gap: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+@media (min-width: 768px) {
+  .case-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 .case-card {
@@ -139,6 +145,7 @@ a:focus {
   display: flex;
   flex-direction: column;
   gap: 1.1rem;
+  position: relative;
 }
 
 .case-card__header {
@@ -175,19 +182,32 @@ a:focus {
   align-items: center;
 }
 
+
+.case-card__badge {
+  position: absolute;
+  top: clamp(0.85rem, 2vw, 1.4rem);
+  right: clamp(0.85rem, 2vw, 1.4rem);
+  padding: 0.25rem 0.8rem;
+  border-radius: 999px;
+  color: #a1a1aa;
+  background: transparent;
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+  opacity: 0.78;
+  transition: opacity 180ms ease-in-out;
+}
+
+.case-card:hover .case-card__badge,
+.case-card:focus-within .case-card__badge {
+  opacity: 1;
+}
+
 .case-card__meta {
   display: flex;
   align-items: center;
   gap: 0.75rem;
   font-size: 0.85rem;
   color: var(--fg-muted);
-}
-
-.case-card__category {
-  padding: 0.1rem 0.75rem;
-  border-radius: 999px;
-  background: rgba(37, 99, 235, 0.08);
-  color: var(--accent);
 }
 
 .case-card__content p {

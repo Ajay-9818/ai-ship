@@ -1,5 +1,8 @@
 {% macro caseCard(item, lang='zh') %}
 <article class="case-card" id="case-{{ item.fileSlug }}" data-category="{{ item.data.category | default('其他') }}">
+  {% if item.data.category %}
+  <span class="case-card__badge">{{ item.data.category }}</span>
+  {% endif %}
   <header class="case-card__header">
     <h2 class="case-card__title">{{ item.data.title }}</h2>
     {% if item.data.tools %}
@@ -25,7 +28,6 @@
   {% endif %}
   <div class="case-card__meta">
     <time datetime="{{ item.date | dateIso }}">{{ item.date | readableDate(locale) }}</time>
-    <span class="case-card__category">{{ item.data.category }}</span>
   </div>
 
   <div class="case-card__content">
