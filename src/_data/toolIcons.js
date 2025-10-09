@@ -14,6 +14,16 @@ module.exports = {
     title: 'ChatGPT',
     svg: 'https://unpkg.com/@lobehub/icons-static-svg@latest/icons/openai.svg'
   },
+  codex: {
+    symbolId: 'icon-codex',
+    title: 'Codex',
+    svg: 'https://unpkg.com/@lobehub/icons-static-svg@latest/icons/openai.svg'
+  },
+  copilot: {
+    symbolId: 'icon-copilot',
+    title: 'Codex',
+    svg: 'https://unpkg.com/@lobehub/icons-static-svg@latest/icons/GithubCopilot.svg'
+  },
   deepseek: {
     symbolId: 'icon-deepseek',
     title: 'DeepSeek',
