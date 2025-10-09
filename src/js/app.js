@@ -231,14 +231,63 @@ function initSailboat() {
   const rotateDuration = 260; // ms for flip
   let flipping = false;
   let rafId = null;
-  let flipTimer = null;
   let hasStarted = false;
+  let wavePhase = 0;
+  const waveSpeed = 1.4; // oscillations per second
+  const waveAmplitude = 6; // px vertical bobbing
+  const tiltAmplitude = 4; // deg
 
-  function getBounds(anchorX = currentX) {
+  const TWO_PI = Math.PI * 2;
+  let yaw = 0;
+  let targetYaw = 0;
+  let startYaw = 0;
+  let yawDiff = 0;
+  let flipStart = 0;
+  let baseLeft = 0;
+  let boatWidth = boat.offsetWidth;
+  let waveIntensity = 0;
+  boat.style.transformStyle = 'preserve-3d';
+  boat.style.backfaceVisibility = 'visible';
+  boat.style.transformOrigin = '50% 70%';
+  boat.style.willChange = 'transform';
+  const waveRampDuration = 0.35; // seconds to reach full wave amplitude
+
+  function measureBase() {
+    const wrapper = boat.closest('.site-title__icon');
+    const prevBoatTransform = boat.style.transform;
+    const prevWrapperTransform = wrapper ? wrapper.style.transform : '';
+
+    boat.style.transform = 'none';
+    if (wrapper) {
+      wrapper.style.transform = 'none';
+    }
+
     const containerRect = container.getBoundingClientRect();
-    const boatRect = boat.getBoundingClientRect();
-    const baseLeft = boatRect.left - anchorX;
-    const maxX = Math.max(0, containerRect.right - margin - boatRect.width - baseLeft);
+    const referenceRect = (wrapper || boat).getBoundingClientRect();
+    boatWidth = referenceRect.width;
+    baseLeft = referenceRect.left - containerRect.left;
+
+    boat.style.transform = prevBoatTransform;
+    if (wrapper) {
+      wrapper.style.transform = prevWrapperTransform;
+    }
+  }
+
+  function render() {
+    const angle = wavePhase % TWO_PI;
+    const effectiveWave = waveAmplitude * waveIntensity;
+    const bob = Math.sin(angle) * effectiveWave;
+    const yawRad = (yaw * Math.PI) / 180;
+    const facing = Math.cos(yawRad);
+    const leanDirection = Math.abs(facing) > 0.05 ? Math.sign(facing) : direction;
+    const tilt = Math.sin(angle + Math.PI / 2) * tiltAmplitude * leanDirection * waveIntensity;
+    const perspective = 'perspective(800px)';
+    boat.style.transform = `${perspective} translateX(${currentX}px) translateY(${bob}px) rotateY(${yaw}deg) rotate(${tilt}deg)`;
+  }
+
+  function getBounds() {
+    const containerRect = container.getBoundingClientRect();
+    const maxX = Math.max(0, containerRect.width - baseLeft - boatWidth - margin);
     return { minX: 0, maxX };
   }
 
@@ -251,7 +300,7 @@ function initSailboat() {
     if (!flipping) {
       const previousX = currentX;
       const nextX = previousX + direction * speed * dt;
-      const { minX, maxX } = getBounds(previousX);
+      const { minX, maxX } = getBounds();
       if (nextX > maxX) {
         currentX = maxX;
         flip();
@@ -262,28 +311,48 @@ function initSailboat() {
         currentX = nextX;
       }
     }
-    boat.style.transform = `translateX(${currentX}px) scaleX(${direction})`;
+    if (flipping) {
+      const elapsed = ts - flipStart;
+      const progress = Math.min(elapsed / rotateDuration, 1);
+      const eased = 0.5 - 0.5 * Math.cos(Math.PI * progress);
+      yaw = startYaw + yawDiff * eased;
+      if (progress >= 1) {
+        yaw = targetYaw;
+        flipping = false;
+      }
+    } else {
+      yaw = targetYaw;
+    }
+    wavePhase += waveSpeed * TWO_PI * dt;
+    if (waveIntensity < 1) {
+      waveIntensity = Math.min(1, waveIntensity + (dt / waveRampDuration));
+    }
+    render();
     rafId = requestAnimationFrame(frame);
   }
   function flip() {
     if (flipping) return;
-    flipping = true;
     direction *= -1;
-    if (flipTimer) clearTimeout(flipTimer);
-    flipTimer = setTimeout(() => {
-      flipping = false;
-      flipTimer = null;
-    }, rotateDuration);
+    startYaw = yaw;
+    targetYaw = direction === 1 ? 0 : 180;
+    yawDiff = targetYaw - startYaw;
+    if (yawDiff > 180) yawDiff -= 360;
+    if (yawDiff < -180) yawDiff += 360;
+    flipStart = performance.now();
+    flipping = true;
   }
   function reset() {
-    if (flipTimer) {
-      clearTimeout(flipTimer);
-      flipTimer = null;
-    }
     direction = 1;
     currentX = 0;
     flipping = false;
-    boat.style.transform = 'translateX(0px) scaleX(1)';
+    wavePhase = 0;
+    waveIntensity = 0;
+    yaw = 0;
+    targetYaw = 0;
+    startYaw = 0;
+    yawDiff = 0;
+    measureBase();
+    render();
   }
   function start() {
     if (animating) return;
@@ -302,15 +371,20 @@ function initSailboat() {
       rafId = null;
     }
     lastTs = 0;
+    render();
   }
   function handleResize() {
+    measureBase();
     const { minX, maxX } = getBounds();
     currentX = Math.min(Math.max(currentX, minX), maxX);
-    boat.style.transform = `translateX(${currentX}px) scaleX(${direction})`;
+    render();
   }
   title.addEventListener('mouseenter', start);
   title.addEventListener('mouseleave', stop);
   window.addEventListener('resize', handleResize);
+
+  measureBase();
+  render();
 }
 
 const init = () => {
