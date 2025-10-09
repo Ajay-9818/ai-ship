@@ -14,6 +14,7 @@
   --border: #f3f3f3;
   --radius-md: 16px;
   --shadow-md: 0 22px 36px rgba(190, 63, 72, 0.08);
+  --logo-icon: rgba(151, 151, 151, 1.0);
 }
 
 :root[data-theme='dark'] {
@@ -26,6 +27,7 @@
   --accent: #cf6c6c;
   --border: rgb(45, 44, 44);
   --shadow-md: 0 24px 40px rgba(0, 0, 0, 0.35);
+  --logo-icon: rgba(80, 80, 80, 1.0);
 }
 
 * {
@@ -79,7 +81,7 @@ a:focus {
 }
 
 .site-header {
-  padding: clamp(14em, 22vw, 16rem) 0 clamp(1.5rem, 4vw, 2.5rem);
+  padding: clamp(10em, 18vw, 12rem) 0 clamp(1.5rem, 4vw, 2.5rem);
   position: relative;
 }
 
@@ -180,11 +182,12 @@ a:focus {
   position: relative;
 }
 .site-title__text { line-height: 1; }
-.site-title__icon { line-height: 0; display: inline-flex; align-items: flex-end; position: relative; transform: translateY(16px); }
+.site-title__icon { line-height: 0; display: inline-flex; align-items: flex-end; position: relative; transform: translateY(30px); }
 .icon-sailboat {
   width: 4.2em; height: 4.2em; stroke-width: 1;
   transform-origin: center center; will-change: transform;
   fill: none; /* 强制无填充 */
+  color: var(--logo-icon);
   display: block;
 /* 船只动画运行时将通过 JS 设置 transform */
 
