@@ -83,7 +83,7 @@ prompt: |
 ### 5. 项目结构
 
 ```
-ai-use-website/
+ai-ship-website/
 ├── src/
 │   ├── _data/           # 全局数据
 │   ├── _includes/       # 模板组件
