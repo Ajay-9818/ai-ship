@@ -215,10 +215,56 @@ const initControls = () => {
   });
 };
 
+function initSailboat() {
+  const title = document.querySelector('.site-title');
+  if (!title) return;
+  const boat = title.querySelector('.icon-sailboat');
+  if (!boat) return;
+
+  let animating = false;
+  let direction = 1; // 1 = right, -1 = left
+  let currentX = 0;
+  let lastTs = 0;
+  const speed = 120; // px per second
+  const rotateDuration = 260; // ms for flip
+  let flipping = false;
+  let rafId = null;
+
+  function getBounds() {
+    const titleRect = title.getBoundingClientRect();
+    const boatRect = boat.getBoundingClientRect();
+    const maxX = window.innerWidth - titleRect.left - boatRect.width - 16;
+    const minX = 0;
+    return { minX, maxX };
+  }
+
+  function frame(ts) {
+    if (!animating) return;
+    if (!lastTs) lastTs = ts;
+    const dt = (ts - lastTs) / 1000;
+    lastTs = ts;
+
+    if (!flipping) {
+      currentX += direction * speed * dt;
+      const { minX, maxX } = getBounds();
+      if (currentX >= maxX) { currentX = maxX; flip(); }
+      else if (currentX <= minX) { currentX = minX; flip(); }
+    }
+    boat.style.transform = `translateX(${currentX}px) scaleX(${direction})`;
+    rafId = requestAnimationFrame(frame);
+  }
+  function flip() { if (flipping) return; flipping = true; direction *= -1; setTimeout(()=>{flipping=false;}, rotateDuration); }
+  function start() { if (animating) return; animating = true; lastTs = 0; rafId = requestAnimationFrame(frame);} 
+  function stop() { animating = false; if (rafId) cancelAnimationFrame(rafId);} 
+  title.addEventListener('mouseenter', start);
+  title.addEventListener('mouseleave', stop);
+}
+
 const init = () => {
   bindPromptDetails();
   bindPagination();
   initControls();
+  initSailboat();
 };
 
 document.addEventListener('DOMContentLoaded', init);

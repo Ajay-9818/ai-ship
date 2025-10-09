@@ -171,6 +171,23 @@ a:focus {
 }
 
 .site-title {
+.site-title {
+  font-size: clamp(2.5rem, 4vw, 3.6rem);
+  margin: 0 0 1rem 0;
+  letter-spacing: 0.04em;
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 0.75rem;
+  position: relative;
+}
+.site-title__text { line-height: 1; }
+.site-title__icon { line-height: 0; display: inline-flex; align-items: flex-end; position: relative; }
+.icon-sailboat {
+  width: 1.8em; height: 1.8em; stroke-width: 2; 
+  transform-origin: center center; will-change: transform;
+}
+/* 船只动画运行时将通过 JS 设置 transform */
+
   font-size: clamp(2.5rem, 4vw, 3.6rem);
   margin: 0 0 1rem 0;
   letter-spacing: 0.04em;
