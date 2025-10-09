@@ -27,7 +27,7 @@
     - 添加结构化数据 `<script type="application/ld+json">`。
 - [x] 规划多语言基础：
     - 准备语言子目录结构（`src/articles/zh/`、`src/articles/en/` 等）。
-    - 引入 `eleventy-plugin-i18n`，定义翻译字典与 `hreflang` 链接短代码。
+    - 配置 `_data/i18n.json` 字典与 `t` 过滤器，后续可扩展 `<link rel="alternate" hreflang>`。
     - 模板提供语言切换组件，必要时实现基于 `Accept-Language` 的提示。
 - [x] 完成暗色主题切换：实现按钮 UI、数据属性切换、`localStorage` 持久化，确保构建后的 CSS 已包含双主题变量。
 - [x] 添加内容工具：`npm run lint`（可选，例如 Stylelint/ESLint）、`npm run format`（Prettier），以及 Markdown lint 配置。
@@ -35,3 +35,5 @@
 - [x] 设置部署：编写 Netlify 配置（`netlify.toml` 或仪表盘设置），指定 `npm run build` 与 `public/` 为发布目录；配置环境变量、自动化预览。
 - [x] 最后进行端到端检查：运行 `npm run build`，手动审阅输出 HTML/CSS/JS，测试分页、提示、SEO 标签和图标映射是否正常。
 - [x] （可选）为后续迭代列出 backlog：多语言内容填充、更多图标、性能优化（如图片懒加载、预渲染），记录在 issue 或项目看板中。
+
+> 备注：`npm run lint` 脚本已预留，待迁移至 ESLint Flat Config 后再启用。

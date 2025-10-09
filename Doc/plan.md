@@ -4,6 +4,14 @@
 
 构建一个静态网站，用于记录AI使用案例和经验分享，样式和布局保持简洁有趣，是一个想让人探索的页面。
 
+## 当前进度
+
+- ✅ 站点基础结构、案例卡片组件、分页与主题切换均已实现并投入使用
+- ✅ 工具图标构建链路（下载 → sprite 合并）与 Prompt 复制交互稳定工作
+- ✅ 多语言框架到位（`zh` 默认输出，`en`/`jp` 依赖 Front Matter `lang` 字段）；目前内容主要为中文
+- ✅ 卡片正文图片支持点击后进入 modal 预览，并处理键盘可访问性
+- ⏳ Backlog 中的增强项（内容扩充、性能优化等）待后续迭代
+
 ## 详细需求规格
 
 ### 1. 页面结构
@@ -53,6 +61,8 @@ prompt: |
 
 这里是案例的详细描述内容，支持**Markdown**格式，可以包含[链接](https://example.com)和`高亮`。
 ```
+
+> 说明：默认中文文章可以省略 `lang` 字段；如果要渲染到英文或日文集合，请在 Front Matter 中增加 `lang: en` 或 `lang: jp`。
 
 **文件命名规范**
 - `YYYY-MM-DD-title.md`
@@ -118,6 +128,7 @@ ai-ship-website/
 - 保持最小化引用：编译过程中避免复杂的 css 引用，只获取用到的 css 组件
 - 图标使用内联 SVG sprite 或构建时合并的符号集，避免重复请求
 - `src/_data/toolIcons.js` 维护工具 slug → SVG symbol 映射，Markdown 中的 `tools` 字段使用 slug；构建阶段通过 Eleventy Shortcode 注入 `<use xlink:href="#icon-slug">`
+- 卡片正文中的图片可点击放大至 modal 并支持键盘触发，便于阅读细节
 
 #### 分页功能
 - 通过 Eleventy 内置 `pagination` 功能按日期排序后，每页显示 20 个卡片并生成 `/page/N/`
@@ -144,7 +155,7 @@ ai-ship-website/
 
 - 多语言支持
   - 采用 `/zh/`、`/en/`、`/jp/` 等子目录，`/` 默认指向中文版本；Markdown 文件按语言子目录或后缀组织，构建时归并到对应 collection
-  - 配合 `eleventy-plugin-i18n` 维护 UI 文案，模板输出 `<link rel="alternate" hreflang>` 与语言切换按钮
+  - 通过 `_data/i18n.json` 配置文案字典，并在 Nunjucks 中使用 `t` 过滤器输出多语言文本，模板可扩展 `<link rel="alternate" hreflang>` 与语言切换按钮
   - 根据浏览器 `Accept-Language` 提供软跳转提示，但保持显式的语言切换控制
 - 暗色主题
   - 默认遵循 `prefers-color-scheme`，并在本地存储用户选择
