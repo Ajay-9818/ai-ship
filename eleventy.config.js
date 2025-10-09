@@ -28,6 +28,9 @@ module.exports = function (eleventyConfig) {
     'src/static': '.'
   });
 
+  eleventyConfig.addWatchTarget('src/css/**/*.css');
+  eleventyConfig.addWatchTarget('src/static/assets/**/*.css');
+
   eleventyConfig.addFilter('readableDate', (value, locale = 'zh-CN') => {
     if (!value) return '';
     const date = value instanceof Date ? value : new Date(value);

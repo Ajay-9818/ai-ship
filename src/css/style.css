@@ -171,7 +171,6 @@ a:focus {
 }
 
 .site-title {
-.site-title {
   font-size: clamp(2.5rem, 4vw, 3.6rem);
   margin: 0 0 1rem 0;
   letter-spacing: 0.04em;
@@ -181,15 +180,12 @@ a:focus {
   position: relative;
 }
 .site-title__text { line-height: 1; }
-.site-title__icon { line-height: 0; display: inline-flex; align-items: flex-end; position: relative; transform: translateY(6px); }
+.site-title__icon { line-height: 0; display: inline-flex; align-items: flex-end; position: relative; transform: translateY(16px); }
 .icon-sailboat {
-  width: 2.2em; height: 2.2em; stroke-width: 1;
+  width: 4.2em; height: 4.2em; stroke-width: 1;
   transform-origin: center center; will-change: transform;
   fill: none; /* 强制无填充 */
   display: block;
-}
-}
-}
 /* 船只动画运行时将通过 JS 设置 transform */
 
   font-size: clamp(2.5rem, 4vw, 3.6rem);
