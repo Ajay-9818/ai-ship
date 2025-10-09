@@ -15,6 +15,12 @@
   --radius-md: 16px;
   --shadow-md: 0 22px 36px rgba(190, 63, 72, 0.08);
   --logo-icon: rgba(151, 151, 151, 1.0);
+  --highlight-pen: linear-gradient(
+    to right,
+    rgba(184, 54, 54, 0.14) 0%,
+    rgba(184, 54, 54, 0.52) 7%,
+    rgba(184, 54, 54, 0.26) 100%
+  );
 }
 
 :root[data-theme='dark'] {
@@ -28,6 +34,12 @@
   --border: rgb(45, 44, 44);
   --shadow-md: 0 24px 40px rgba(0, 0, 0, 0.35);
   --logo-icon: rgba(80, 80, 80, 1.0);
+  --highlight-pen: linear-gradient(
+    to right,
+    rgba(207, 108, 108, 0.2) 0%,
+    rgba(207, 108, 108, 0.58) 7%,
+    rgba(207, 108, 108, 0.32) 100%
+  );
 }
 
 * {
@@ -40,6 +52,34 @@ body {
   background: var(--bg);
   color: var(--fg);
   line-height: 1.7;
+}
+
+:not(pre) code {
+  display: inline;
+  padding: 0.1em 0.35em;
+  margin: 0 -0.18em;
+  border-radius: 0.5em 0.2em;
+  background-image: var(--highlight-pen);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: center;
+  box-decoration-break: clone;
+  color: inherit;
+  font-family: inherit;
+  transition: filter 120ms ease;
+  transform: rotate(-1.1deg);
+}
+
+:not(pre) code:hover,
+:not(pre) code:focus {
+  filter: brightness(1.05);
+}
+
+pre code {
+  background: none;
+  padding: 0;
+  margin: 0;
+  border-radius: 0;
 }
 
 .visually-hidden {
