@@ -10,13 +10,14 @@
     "build:css": "npx tailwindcss -i ./src/css/style.css -o ./src/static/assets/main.css --minify",
     "build:js": "node scripts/copy-js.js",
     "build:assets": "npm-run-all build:css build:js",
+    "build:font": "node scripts/subset-font.js",
     "eleventy:build": "npx @11ty/eleventy",
     "eleventy:serve": "npx @11ty/eleventy --serve",
-    "build": "run-s clean download:icons build:icons build:assets eleventy:build",
+    "build": "run-s clean download:icons build:icons build:font build:assets eleventy:build",
     "watch:css": "npx tailwindcss -i ./src/css/style.css -o ./src/static/assets/main.css --watch",
     "watch:js": "node scripts/copy-js.js --watch",
     "watch:eleventy": "npx @11ty/eleventy --serve",
-    "dev": "npm-run-all download:icons build:icons --parallel watch:css watch:js watch:eleventy",
+    "dev": "npm-run-all download:icons build:icons build:font --parallel watch:css watch:js watch:eleventy",
     "lint": "eslint src/js --max-warnings=0",
     "format": "prettier --write \"src/**/*.{njk,md,css,js,json}\" eleventy.config.js Doc/**/*.md"
   },
@@ -31,6 +32,7 @@
     "npm-run-all": "^4.1.5",
     "postcss": "^8.5.6",
     "prettier": "^3.6.2",
+    "subset-font": "^2.4.0",
     "svgstore": "^3.0.1",
     "tailwindcss": "^3.4.14"
   }
