@@ -183,8 +183,9 @@ a:focus {
 .site-title__text { line-height: 1; }
 .site-title__icon { line-height: 0; display: inline-flex; align-items: flex-end; position: relative; }
 .icon-sailboat {
-  width: 1.8em; height: 1.8em; stroke-width: 2; 
+  width: 1.8em; height: 1.8em; stroke-width: 2;
   transform-origin: center center; will-change: transform;
+  fill: none; /* 强制无填充 */
 }
 /* 船只动画运行时将通过 JS 设置 transform */
 
