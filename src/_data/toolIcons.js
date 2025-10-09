@@ -29,6 +29,11 @@ module.exports = {
     title: 'DeepSeek',
     svg: 'https://unpkg.com/@lobehub/icons-static-svg@latest/icons/deepseek-color.svg'
   },
+  n8n: {
+    symbolId: 'icon-n8n',
+    title: 'N8N',
+    svg: 'https://unpkg.com/@lobehub/icons-static-svg@latest/icons/n8n-color.svg'
+  },
   __default: {
     symbolId: 'icon-generic',
     title: 'AI Tool',

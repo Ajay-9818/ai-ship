@@ -381,6 +381,31 @@ a:focus {
   margin-top: 0.5rem;
 }
 
+.case-card__content figure {
+  margin: 0 0 0.75rem 0;
+}
+
+.case-card__content figcaption {
+  margin-top: 0.35rem;
+  font-size: 0.85rem;
+  color: var(--fg-muted);
+}
+
+.case-card__content img {
+  max-width: 100%;
+  border-radius: 12px;
+  margin: 0.75rem 0;
+  cursor: zoom-in;
+  transition: transform 160ms ease;
+  width: 100%;
+  height: auto;
+}
+
+.case-card__content img:hover,
+.case-card__content img:focus {
+  transform: scale(1.01);
+}
+
 .case-card__content p {
   margin: 0 0 0.75rem 0;
 }
@@ -581,6 +606,90 @@ a:focus {
   align-items: center;
   gap: 1.5rem;
   font-size: 0.95rem;
+}
+
+body.image-modal-open {
+  overflow: hidden;
+}
+
+.image-modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1rem, 4vw, 2.5rem);
+  z-index: 1200;
+}
+
+.image-modal.is-active {
+  display: flex;
+}
+
+.image-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(2px);
+}
+
+.image-modal__dialog {
+  position: relative;
+  z-index: 1;
+  width: min(92vw, 960px);
+  max-height: calc(100vh - 4rem);
+  display: flex;
+  flex-direction: column;
+}
+
+.image-modal__figure {
+  margin: 0;
+  background: var(--surface);
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  max-height: inherit;
+  box-shadow: 0 28px 60px rgba(0, 0, 0, 0.32);
+}
+
+.image-modal__figure img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  background: var(--surface);
+  max-height: calc(100vh - 6rem);
+}
+
+.image-modal__caption {
+  padding: 0.75rem 1rem 1rem;
+  font-size: 0.9rem;
+  color: var(--fg-muted);
+}
+
+.image-modal__close {
+  position: absolute;
+  top: -0.75rem;
+  right: -0.75rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.35rem;
+  line-height: 1;
+  transition: background 160ms ease;
+}
+
+.image-modal__close:hover,
+.image-modal__close:focus {
+  background: rgba(0, 0, 0, 0.85);
 }
 
 .pagination ol {

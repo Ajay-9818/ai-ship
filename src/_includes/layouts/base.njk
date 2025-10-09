@@ -77,6 +77,20 @@
     </div>
   </footer>
 
+  <div class="image-modal" data-image-modal aria-hidden="true" hidden>
+    <div class="image-modal__backdrop" data-image-modal-dismiss></div>
+    <div class="image-modal__dialog" role="dialog" aria-modal="true" aria-label="{{ 'image.modal.dialog' | t(currentLang) }}">
+      <button type="button" class="image-modal__close" data-image-modal-dismiss>
+        <span class="image-modal__close-label visually-hidden">{{ 'image.modal.close' | t(currentLang) }}</span>
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <figure class="image-modal__figure">
+        <img data-image-modal-img alt="" />
+        <figcaption class="image-modal__caption" data-image-modal-caption hidden></figcaption>
+      </figure>
+    </div>
+  </div>
+
   <script src="/assets/app.js" type="module" defer></script>
 </body>
 </html>

@@ -482,10 +482,107 @@ function initSailboat() {
   render();
 }
 
+const initImageModal = () => {
+  // Sets up the lightbox modal for card images.
+  const modal = document.querySelector('[data-image-modal]');
+  const modalImage = modal?.querySelector('[data-image-modal-img]');
+  if (!modal || !modalImage) return;
+
+  const modalCaption = modal.querySelector('[data-image-modal-caption]');
+  const closeTargets = modal.querySelectorAll('[data-image-modal-dismiss]');
+  const closeButton = modal.querySelector('.image-modal__close');
+  let lastActiveElement = null;
+
+  const handleKeydown = (event) => {
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closeModal();
+    }
+  };
+
+  const closeModal = () => {
+    if (!modal.classList.contains('is-active')) return;
+    modal.classList.remove('is-active');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('image-modal-open');
+    modalImage.removeAttribute('src');
+    modalImage.alt = '';
+    if (modalCaption) {
+      modalCaption.textContent = '';
+      modalCaption.hidden = true;
+    }
+    document.removeEventListener('keydown', handleKeydown);
+    if (lastActiveElement) {
+      lastActiveElement.focus({ preventScroll: true });
+      lastActiveElement = null;
+    }
+    modal.hidden = true;
+  };
+
+  const openModal = (image) => {
+    const source = image.dataset.fullsize || image.currentSrc || image.src;
+    if (!source) return;
+
+    lastActiveElement = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    modalImage.src = source;
+    modalImage.alt = image.alt || '';
+
+    if (modalCaption) {
+      const caption = image.dataset.caption || image.alt || image.title || '';
+      if (caption) {
+        modalCaption.textContent = caption;
+        modalCaption.hidden = false;
+      } else {
+        modalCaption.textContent = '';
+        modalCaption.hidden = true;
+      }
+    }
+
+    modal.hidden = false;
+    modal.classList.add('is-active');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('image-modal-open');
+    document.addEventListener('keydown', handleKeydown);
+    closeButton?.focus({ preventScroll: true });
+  };
+
+  closeTargets.forEach((trigger) => {
+    trigger.addEventListener('click', () => closeModal());
+  });
+
+  modal.addEventListener('click', (event) => {
+    if (event.target === modal) {
+      closeModal();
+    }
+  });
+
+  const bindImage = (image) => {
+    if (!image || image.dataset.imageModalBound === 'true') return;
+    image.dataset.imageModalBound = 'true';
+    image.setAttribute('data-image-modal-trigger', 'true');
+    if (!image.hasAttribute('tabindex')) {
+      image.setAttribute('tabindex', '0');
+    }
+    image.setAttribute('role', 'button');
+    image.setAttribute('aria-haspopup', 'dialog');
+
+    image.addEventListener('click', () => openModal(image));
+    image.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        openModal(image);
+      }
+    });
+  };
+
+  document.querySelectorAll('.case-card__content img').forEach(bindImage);
+};
+
 const init = () => {
   bindPromptDetails();
   bindPagination();
   initControls();
+  initImageModal();
   initSailboat();
 };
 
