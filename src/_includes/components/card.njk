@@ -10,9 +10,9 @@
       {% for tool in item.data.tools %}
         {% set slug = tool %}
         {% set label = item.data.tool_labels and item.data.tool_labels[tool] or tool %}
-        {% set icon = toolIcons[slug] or toolIcons.__default %}
+        {% set symbolId = slug | toolIcon %}
         <li>
-          <svg class="tool-icon" aria-hidden="true"><use href="#{{ icon.symbolId }}" /></svg>
+          <svg class="tool-icon" aria-hidden="true"><use href="#{{ symbolId }}" /></svg>
           <span class="case-card__tool-label">{{ label }}</span>
         </li>
       {% endfor %}

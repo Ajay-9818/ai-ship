@@ -51,6 +51,7 @@ module.exports = function (eleventyConfig) {
   });
 
   eleventyConfig.addFilter('t', (key, lang = 'zh') => translate(key, lang));
+  eleventyConfig.addFilter('toolIcon', (slug) => resolveToolIcon(slug));
 
   eleventyConfig.setLibrary('md', markdownIt({
     html: true,
