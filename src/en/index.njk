@@ -1,14 +1,14 @@
 ---
 layout: layouts/base.njk
 pagination:
-  data: collections.cases
+  data: collections.cases_en
   size: 20
   alias: cases
   reverse: false
-permalink: "{% if pagination.pageNumber == 0 %}/index.html{% else %}/page/{{ pagination.pageNumber + 1 }}/index.html{% endif %}"
-lang: zh
+permalink: "/en/{% if pagination.pageNumber == 0 %}index.html{% else %}page/{{ pagination.pageNumber + 1 }}/index.html{% endif %}"
+lang: en
 ---
-{% set currentLang = page.lang or 'zh' %}
+{% set currentLang = page.lang or 'en' %}
 {% set sectionLabel = 'cases.section' | t(currentLang) %}
 {% from "components/card.njk" import caseCard %}
 {% from "components/pagination.njk" import render as renderPagination %}

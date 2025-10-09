@@ -1,12 +1,29 @@
 {
-  "title": "上了AI的贼船",
-  "description": "记录我使用 AI 的实践案例与心得，聚焦工具、工作流和提示词。",
+  "defaultLang": "zh",
+  "languages": {
+    "zh": {
+      "title": "上了AI的贼船",
+      "description": "欢迎登船！这里是「AI贼船」的航行日志：记录了我使用AI工具、工作流和提示词“打劫”效率的一些灵感。航海图完全公开，期待与你交换宝藏，一起驶向更远的地方。",
+      "locale": "zh-CN",
+      "label": "中文"
+    },
+    "en": {
+      "title": "In AI for the Ride",
+      "description": "Welcome aboard! This is my log of using AI tools, workflows, and prompts to plunder efficiency and inspiration. I'm sharing my map for the ride with all of you—let's exchange our treasures and cruise further together.",
+      "locale": "en-US",
+      "label": "English"
+    },
+    "jp": {
+      "title": "AIの船に乗っちゃった",
+      "description": "ようこそ！ここでは、AIツールとワークフロー、プロンプトを使って、効率とインスピレーションを「探求する」日々を記録しています。この航海図は全て公開中。みんなで宝物を交換し、さらに先へ冒険を続けましょう！",
+      "locale": "ja-JP",
+      "label": "日本語"
+    }
+  },
   "author": {
     "name": "",
     "url": ""
   },
-  "language": "zh",
-  "locale": "zh-CN",
   "url": "https://example.com",
   "themeColor": "#111827",
   "social": {

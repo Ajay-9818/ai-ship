@@ -3,13 +3,15 @@ permalink: /feed.json
 layout: null
 eleventyExcludeFromCollections: true
 ---
+{% set defaultLang = site.defaultLang or 'zh' %}
+{% set siteLangData = site.languages[defaultLang] or site.languages.zh %}
 {
   "version": "https://jsonfeed.org/version/1.1",
-  "title": "{{ site.title }}",
+  "title": "{{ siteLangData.title }}",
   "home_page_url": "{{ site.url }}/",
   "feed_url": "{{ site.url }}/feed.json",
-  "description": "{{ site.description }}",
-  "language": "{{ site.language or 'zh' }}",
+  "description": "{{ siteLangData.description }}",
+  "language": "{{ siteLangData.locale or 'zh-CN' }}",
   "items": [
     {% for item in collections.cases %}
     {

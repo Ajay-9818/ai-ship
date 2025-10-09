@@ -1,5 +1,5 @@
 {% macro caseCard(item, lang='zh') %}
-<article class="case-card" id="case-{{ item.fileSlug }}" data-category="{{ item.data.category | default('其他') }}">
+<article class="case-card" id="case-{{ item.fileSlug }}" data-category="{{ item.data.category | default('other') }}">
   {% if item.data.category %}
   <span class="case-card__badge">{{ item.data.category }}</span>
   {% endif %}
@@ -34,7 +34,8 @@
   {% if item.data.action_button and item.data.action_button.url or item.data.prompt %}
   <div class="case-card__actions">
     {% if item.data.action_button and item.data.action_button.url %}
-    <a class="btn" href="{{ item.data.action_button.url }}" target="_blank" rel="noopener">{{ item.data.action_button.text or '查看详情' }}</a>
+    {% set actionLabel = item.data.action_button.text or ('actions.view' | t(lang)) %}
+    <a class="btn" href="{{ item.data.action_button.url }}" target="_blank" rel="noopener">{{ actionLabel }}</a>
     {% endif %}
 
     {% if item.data.prompt %}

@@ -1,22 +1,26 @@
 {% set canonicalUrl = site.url + page.url %}
+{% set altLangs = supportedLangs or [] %}
+{% set localeCode = siteLangData.locale or site.languages[site.defaultLang].locale or 'zh-CN' %}
+{% set ogTitle = pageTitle %}
+{% set ogDescription = pageDescription %}
 <link rel="canonical" href="{{ canonicalUrl }}">
 <meta name="theme-color" content="{{ site.themeColor or '#111827' }}">
 <meta property="og:type" content="website">
-<meta property="og:title" content="{{ title or site.title }}">
-<meta property="og:description" content="{{ description or site.description }}">
+<meta property="og:title" content="{{ ogTitle }}">
+<meta property="og:description" content="{{ ogDescription }}">
 <meta property="og:url" content="{{ canonicalUrl }}">
 {% if site.ogImage %}
 <meta property="og:image" content="{{ site.url }}{{ site.ogImage }}">
 {% endif %}
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="{{ title or site.title }}">
-<meta name="twitter:description" content="{{ description or site.description }}">
+<meta name="twitter:title" content="{{ ogTitle }}">
+<meta name="twitter:description" content="{{ ogDescription }}">
 {% if site.social.twitter %}
 <meta name="twitter:site" content="{{ site.social.twitter }}">
 {% endif %}
-{% for lang in supportedLangs %}
+{% for lang in altLangs %}
   {% set href = site.url ~ '/' %}
-  {% if lang != 'zh' %}
+  {% if lang != site.defaultLang %}
     {% set href = site.url ~ '/' ~ lang ~ '/' %}
   {% endif %}
   <link rel="alternate" hreflang="{{ lang }}" href="{{ href }}">
@@ -25,9 +29,9 @@
 {{ {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
-  "name": title or site.title,
-  "description": description or site.description,
+  "name": ogTitle,
+  "description": ogDescription,
   "url": canonicalUrl,
-  "inLanguage": site.locale or 'zh-CN'
+  "inLanguage": localeCode
 } | dump(2) | safe }}
 </script>

@@ -1,11 +1,24 @@
 <!DOCTYPE html>
-{% set currentLang = page.lang or site.language or 'zh' %}
+{% set languageList = supportedLangs or [] %}
+{% set derivedLang = false %}
+{% if page.url and languageList %}
+  {% for langCandidate in languageList %}
+    {% if langCandidate != (site.defaultLang or 'zh') and page.url.startsWith('/' ~ langCandidate ~ '/') %}
+      {% set derivedLang = langCandidate %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+{% set currentLang = page.lang or lang or derivedLang or site.defaultLang or 'zh' %}
+{% set fallbackLang = site.defaultLang or 'zh' %}
+{% set siteLangData = site.languages[currentLang] or site.languages[fallbackLang] or site.languages.zh %}
+{% set pageTitle = title or siteLangData.title %}
+{% set pageDescription = description or siteLangData.description %}
 <html lang="{{ currentLang }}" data-theme="light">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% if title %}{{ title }} · {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
-  <meta name="description" content="{{ description or site.description }}">
+  <title>{% if title %}{{ title }} · {{ siteLangData.title }}{% else %}{{ siteLangData.title }}{% endif %}</title>
+  <meta name="description" content="{{ pageDescription }}">
   {% include 'partials/meta.njk' %}
   <link rel="preload" href="/assets/main.css" as="style">
   <link rel="stylesheet" href="/assets/main.css">
@@ -16,32 +29,34 @@
     <div class="site-header__top">
       <div class="site-controls">
         <div class="control-group">
-        <button type="button" class="control-btn" data-control="theme" aria-label="切换主题">
+        <button type="button" class="control-btn" data-control="theme" aria-label="{{ 'controls.theme.switch' | t(currentLang) }}">
             <svg class="control-icon" aria-hidden="true"><use href="#icon-palette" /></svg>
         </button>
         <div class="control-menu" data-menu="theme">
-            <button type="button" class="menu-item" data-theme="light">浅色</button>
-            <button type="button" class="menu-item" data-theme="dark">深色</button>
-            <button type="button" class="menu-item" data-theme="auto">跟随系统</button>
+            <button type="button" class="menu-item" data-theme="light">{{ 'controls.theme.light' | t(currentLang) }}</button>
+            <button type="button" class="menu-item" data-theme="dark">{{ 'controls.theme.dark' | t(currentLang) }}</button>
+            <button type="button" class="menu-item" data-theme="auto">{{ 'controls.theme.auto' | t(currentLang) }}</button>
         </div>
         </div>
         <div class="control-group">
-        <button type="button" class="control-btn" data-control="language" aria-label="切换语言">
+        <button type="button" class="control-btn" data-control="language" aria-label="{{ 'controls.language.switch' | t(currentLang) }}">
             <svg class="control-icon" aria-hidden="true"><use href="#icon-languages" /></svg>
         </button>
         <div class="control-menu" data-menu="language">
-            <button type="button" class="menu-item" data-lang="zh">中文</button>
-            <button type="button" class="menu-item" data-lang="en">English</button>
-            <button type="button" class="menu-item" data-lang="jp">日本語</button>
+            {% for lang in languageList %}
+              {% set langData = site.languages[lang] or {} %}
+              <button type="button" class="menu-item{% if lang == currentLang %} is-active{% endif %}" data-lang="{{ lang }}">{{ langData.label or lang | upper }}</button>
+            {% endfor %}
         </div>
         </div>
       </div>
     </div>
   <header class="site-header" id="about">
     <div class="container">
-      <h1 class="site-title"><span class="site-title__text">{{ site.title }}</span><span class="site-title__icon" aria-hidden="true"><svg class="icon icon-sailboat" width="96" height="96" fill="none"><use href="#icon-sailboat" /></svg></span></h1>
-      <p class="site-description">{{ site.description }}</p>
-      <nav class="site-nav" aria-label="主导航">
+      <h1 class="site-title"><span class="site-title__text">{{ siteLangData.title }}</span><span class="site-title__icon" aria-hidden="true"><svg class="icon icon-sailboat" width="96" height="96" fill="none"><use href="#icon-sailboat" /></svg></span></h1>
+      <p class="site-description">{{ siteLangData.description }}</p>
+      <p class="site-description__note">Built by <a href="https://onevcat.com" target="_blank" rel="noopener">@onevcat</a> with ❤️</p>
+      <nav class="site-nav" aria-label="{{ 'nav.main' | t(currentLang) }}">
         <ul>
           {% for item in navigation %}
             <li><a href="{{ item.url }}">{{ item.key | t(currentLang) }}</a></li>
@@ -57,8 +72,8 @@
 
   <footer class="site-footer" id="support">
     <div class="container">
-      <p>© {{ buildTime | year }} {{ site.title }}</p>
-      <p>构建方式：Eleventy 静态站点 + 原生前端。</p>
+      <p>© {{ buildTime | year }} 「{{ siteLangData.title }}」</p>
+      <p>{{ 'footer.build' | t(currentLang) }}</p>
     </div>
   </footer>
 

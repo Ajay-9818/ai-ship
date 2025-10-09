@@ -10,9 +10,9 @@ const copyPrompt = async (button) => {
     text = payload;
   }
 
-  const labelDefault = button.dataset.copyLabel || '复制';
-  const labelSuccess = button.dataset.copySuccess || '已复制';
-  const labelFailed = button.dataset.copyFailed || '复制失败';
+  const labelDefault = button.dataset.copyLabel || 'Copy';
+  const labelSuccess = button.dataset.copySuccess || 'Copied';
+  const labelFailed = button.dataset.copyFailed || 'Copy failed';
   const hiddenLabel = button.querySelector('.visually-hidden');
 
   const updateLabel = (label) => {
@@ -162,6 +162,15 @@ const initControls = () => {
       }
     });
   });
+
+  const languageMenu = document.querySelector('[data-menu="language"]');
+  if (languageMenu) {
+    const activeLang = document.documentElement.getAttribute('lang') || 'zh';
+    const currentItem = languageMenu.querySelector(`[data-lang="${activeLang}"]`);
+    if (currentItem) {
+      currentItem.classList.add('is-active');
+    }
+  }
 
   // 语言菜单点击事件
   document.querySelectorAll('[data-lang]').forEach((item) => {

@@ -181,6 +181,10 @@ a:focus {
   gap: 0.75rem;
   position: relative;
 }
+.site-title__text:lang(zh) {
+    letter-spacing: 1.0rem;
+}
+
 .site-title__text { line-height: 1; }
 .site-title__icon { line-height: 0; display: inline-flex; align-items: flex-end; position: relative; transform: translateY(30px); }
 .icon-sailboat {
@@ -197,7 +201,13 @@ a:focus {
 }
 
 .site-description {
-  max-width: 52ch;
+  max-width: 68ch;
+  color: var(--fg-muted);
+}
+
+.site-description__note {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
   color: var(--fg-muted);
 }
 

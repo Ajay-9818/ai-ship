@@ -3,13 +3,15 @@ permalink: /feed.xml
 layout: null
 eleventyExcludeFromCollections: true
 ---
+{% set defaultLang = site.defaultLang or 'zh' %}
+{% set siteLangData = site.languages[defaultLang] or site.languages.zh %}
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
   <channel>
-    <title>{{ site.title }}</title>
+    <title>{{ siteLangData.title }}</title>
     <link>{{ site.url }}/</link>
-    <description>{{ site.description }}</description>
-    <language>{{ site.locale or 'zh-CN' }}</language>
+    <description>{{ siteLangData.description }}</description>
+    <language>{{ siteLangData.locale or 'zh-CN' }}</language>
     <lastBuildDate>{{ buildTime | readableDate('en-US') }}</lastBuildDate>
     {% for item in collections.cases %}
     <item>

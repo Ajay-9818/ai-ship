@@ -11,7 +11,16 @@
     "pagination.prev": "上一页",
     "pagination.next": "下一页",
     "pagination.nav": "分页导航",
-    "empty": "还没有记录任何案例，敬请期待。"
+    "empty": "还没有记录任何案例，敬请期待。",
+    "cases.section": "AI 使用案例",
+    "controls.theme.switch": "切换主题",
+    "controls.language.switch": "切换语言",
+    "controls.theme.light": "浅色",
+    "controls.theme.dark": "深色",
+    "controls.theme.auto": "跟随系统",
+    "nav.main": "主导航",
+    "footer.build": "构建方式：Eleventy + Vanilla JS + Codex",
+    "actions.view": "查看详情"
   },
   "en": {
     "nav.about": "About",
@@ -25,7 +34,16 @@
     "pagination.prev": "Previous",
     "pagination.next": "Next",
     "pagination.nav": "Pagination",
-    "empty": "No entries yet. Stay tuned."
+    "empty": "No entries yet. Stay tuned.",
+    "cases.section": "AI Case Studies",
+    "controls.theme.switch": "Toggle theme",
+    "controls.language.switch": "Change language",
+    "controls.theme.light": "Light",
+    "controls.theme.dark": "Dark",
+    "controls.theme.auto": "System",
+    "nav.main": "Main navigation",
+    "footer.build": "Built with: Eleventy + Vanilla JS + Codex",
+    "actions.view": "View details"
   },
   "jp": {
     "nav.about": "概要",
@@ -39,6 +57,15 @@
     "pagination.prev": "前へ",
     "pagination.next": "次へ",
     "pagination.nav": "ページネーション",
-    "empty": "まだコンテンツはありません。お楽しみに。"
+    "empty": "まだコンテンツはありません。お楽しみに。",
+    "cases.section": "AI 活用事例",
+    "controls.theme.switch": "テーマを切り替え",
+    "controls.language.switch": "言語を変更",
+    "controls.theme.light": "ライト",
+    "controls.theme.dark": "ダーク",
+    "controls.theme.auto": "システム",
+    "nav.main": "メインナビゲーション",
+    "footer.build": "構築方法：Eleventy + Vanilla JS + Codex",
+    "actions.view": "詳細を見る"
   }
 }
