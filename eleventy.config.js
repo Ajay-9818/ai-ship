@@ -57,6 +57,12 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addFilter('t', (key, lang = 'zh') => translate(key, lang));
   eleventyConfig.addFilter('toolIcon', (slug) => resolveToolIcon(slug));
+  eleventyConfig.addFilter('dateYMD', (value) => {
+    if (!value) return '';
+    const date = value instanceof Date ? value : new Date(value);
+    if (Number.isNaN(date.getTime())) return '';
+    return date.toISOString().slice(0, 10);
+  });
 
   eleventyConfig.setLibrary('md', markdownIt({
     html: true,

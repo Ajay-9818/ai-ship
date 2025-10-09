@@ -446,6 +446,14 @@ a:focus {
   pointer-events: auto;
 }
 
+.case-card__meta {
+  margin-top: 1.25rem;
+  display: flex;
+  justify-content: flex-end;
+  font-size: 0.85rem;
+  color: var(--fg-muted);
+}
+
 .case-card__prompt-well {
   background: rgba(0, 0, 0, 0.03);
   border-radius: 12px;
