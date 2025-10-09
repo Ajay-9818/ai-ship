@@ -220,6 +220,8 @@ function initSailboat() {
   if (!title) return;
   const boat = title.querySelector('.icon-sailboat');
   if (!boat) return;
+  const container = title.closest('.container') || document.body;
+  const margin = 16;
 
   let animating = false;
   let direction = 1; // 1 = right, -1 = left
@@ -229,13 +231,15 @@ function initSailboat() {
   const rotateDuration = 260; // ms for flip
   let flipping = false;
   let rafId = null;
+  let flipTimer = null;
+  let hasStarted = false;
 
-  function getBounds() {
-    const titleRect = title.getBoundingClientRect();
+  function getBounds(anchorX = currentX) {
+    const containerRect = container.getBoundingClientRect();
     const boatRect = boat.getBoundingClientRect();
-    const maxX = window.innerWidth - titleRect.left - boatRect.width - 16;
-    const minX = 0;
-    return { minX, maxX };
+    const baseLeft = boatRect.left - anchorX;
+    const maxX = Math.max(0, containerRect.right - margin - boatRect.width - baseLeft);
+    return { minX: 0, maxX };
   }
 
   function frame(ts) {
@@ -245,19 +249,68 @@ function initSailboat() {
     lastTs = ts;
 
     if (!flipping) {
-      currentX += direction * speed * dt;
-      const { minX, maxX } = getBounds();
-      if (currentX >= maxX) { currentX = maxX; flip(); }
-      else if (currentX <= minX) { currentX = minX; flip(); }
+      const previousX = currentX;
+      const nextX = previousX + direction * speed * dt;
+      const { minX, maxX } = getBounds(previousX);
+      if (nextX > maxX) {
+        currentX = maxX;
+        flip();
+      } else if (nextX < minX) {
+        currentX = minX;
+        flip();
+      } else {
+        currentX = nextX;
+      }
     }
     boat.style.transform = `translateX(${currentX}px) scaleX(${direction})`;
     rafId = requestAnimationFrame(frame);
   }
-  function flip() { if (flipping) return; flipping = true; direction *= -1; setTimeout(()=>{flipping=false;}, rotateDuration); }
-  function start() { if (animating) return; animating = true; lastTs = 0; rafId = requestAnimationFrame(frame);} 
-  function stop() { animating = false; if (rafId) cancelAnimationFrame(rafId);} 
+  function flip() {
+    if (flipping) return;
+    flipping = true;
+    direction *= -1;
+    if (flipTimer) clearTimeout(flipTimer);
+    flipTimer = setTimeout(() => {
+      flipping = false;
+      flipTimer = null;
+    }, rotateDuration);
+  }
+  function reset() {
+    if (flipTimer) {
+      clearTimeout(flipTimer);
+      flipTimer = null;
+    }
+    direction = 1;
+    currentX = 0;
+    flipping = false;
+    boat.style.transform = 'translateX(0px) scaleX(1)';
+  }
+  function start() {
+    if (animating) return;
+    if (!hasStarted) {
+      reset();
+      hasStarted = true;
+    }
+    animating = true;
+    lastTs = 0;
+    rafId = requestAnimationFrame(frame);
+  }
+  function stop() {
+    animating = false;
+    if (rafId) {
+      cancelAnimationFrame(rafId);
+      rafId = null;
+    }
+    lastTs = 0;
+  }
+  function handleResize() {
+    const { minX, maxX } = getBounds();
+    currentX = Math.min(Math.max(currentX, minX), maxX);
+    boat.style.transform = `translateX(${currentX}px) scaleX(${direction})`;
+  }
   title.addEventListener('mouseenter', start);
   title.addEventListener('mouseleave', stop);
+  window.addEventListener('resize', handleResize);
 }
 
 const init = () => {
