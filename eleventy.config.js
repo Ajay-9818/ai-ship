@@ -25,8 +25,7 @@ function translate(key, lang = 'zh') {
 module.exports = function (eleventyConfig) {
   // Copy static assets (such as generated sprite) directly to the output
   eleventyConfig.addPassthroughCopy({
-    'src/static': '.',
-    'src/static/assets/fonts': 'static/assets/fonts'
+    'src/static': '.'
   });
 
   eleventyConfig.addFilter('readableDate', (value, locale = 'zh-CN') => {
