@@ -91,13 +91,99 @@ const bindPromptDetails = () => {
 
     if (!fullDetails) return;
 
+    fullDetails.style.height = '0px';
+
+    const ensureState = () => {
+      if (!fullDetails._promptState) {
+        fullDetails._promptState = {
+          rafId: null,
+          transitionHandler: null,
+          animating: false
+        };
+      }
+      return fullDetails._promptState;
+    };
+
+    const clearPending = () => {
+      const state = ensureState();
+      if (state.rafId) {
+        cancelAnimationFrame(state.rafId);
+        state.rafId = null;
+      }
+      if (state.transitionHandler) {
+        fullDetails.removeEventListener('transitionend', state.transitionHandler);
+        state.transitionHandler = null;
+      }
+      state.animating = false;
+      fullDetails.dataset.animating = 'false';
+    };
+
+    const openPrompt = () => {
+      const state = ensureState();
+      if (state.animating && fullDetails.classList.contains('is-open')) return;
+
+      clearPending();
+      state.animating = true;
+      fullDetails.dataset.animating = 'true';
+
+      const start = fullDetails.getBoundingClientRect().height;
+      const target = fullDetails.scrollHeight;
+
+      fullDetails.style.height = `${start}px`;
+      fullDetails.classList.add('is-open');
+
+      state.rafId = requestAnimationFrame(() => {
+        state.rafId = null;
+        fullDetails.style.height = `${target}px`;
+      });
+
+      const handleTransitionEnd = (event) => {
+        if (event.propertyName !== 'height') return;
+        clearPending();
+        fullDetails.style.height = 'auto';
+      };
+
+      fullDetails.addEventListener('transitionend', handleTransitionEnd);
+      state.transitionHandler = handleTransitionEnd;
+    };
+
+    const closePrompt = () => {
+      const state = ensureState();
+      if (state.animating && !fullDetails.classList.contains('is-open')) return;
+
+      clearPending();
+      state.animating = true;
+      fullDetails.dataset.animating = 'true';
+
+      const start = fullDetails.scrollHeight;
+      fullDetails.style.height = `${start}px`;
+
+      state.rafId = requestAnimationFrame(() => {
+        state.rafId = null;
+        fullDetails.classList.remove('is-open');
+        fullDetails.style.height = '0px';
+      });
+
+      const handleTransitionEnd = (event) => {
+        if (event.propertyName !== 'height') return;
+        clearPending();
+      };
+
+      fullDetails.addEventListener('transitionend', handleTransitionEnd);
+      state.transitionHandler = handleTransitionEnd;
+    };
+
     summaryOnly.addEventListener('toggle', () => {
       if (summaryOnly.open) {
-        fullDetails.classList.add('is-open');
+        openPrompt();
       } else {
-        fullDetails.classList.remove('is-open');
+        closePrompt();
       }
     });
+
+    if (summaryOnly.open) {
+      requestAnimationFrame(() => openPrompt());
+    }
   });
 
   document.querySelectorAll('.prompt-copy').forEach((button) => {
