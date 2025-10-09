@@ -10,9 +10,6 @@ public/
 # Generated assets
 src/_includes/sprite.svg
 src/static/assets/
-# Local source fonts (not committed)
-src/fonts/
-
 
 # Local tooling
 .DS_Store

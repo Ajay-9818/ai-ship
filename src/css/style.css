@@ -170,14 +170,7 @@ a:focus {
   color: #fff;
 }
 
-@font-face {
-  font-family: 'SiteTitle';
-  src: url('/static/assets/fonts/site-title-subset.woff2') format('woff2');
-  font-display: swap;
-}
-
 .site-title {
-  font-family: 'SiteTitle', var(--font-sans);
   font-size: clamp(2.5rem, 4vw, 3.6rem);
   margin: 0 0 1rem 0;
   letter-spacing: 0.04em;
