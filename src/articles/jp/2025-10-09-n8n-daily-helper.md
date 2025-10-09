@@ -1,5 +1,5 @@
 ---
-title: "n8nでスケジュールリマインダーを作成"
+title: "n8nで朝の挨拶を作成"
 date: "2025-10-09"
 tools: ["n8n", "deepseek"]
 category: "ライフ"

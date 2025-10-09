@@ -1,8 +1,8 @@
 ---
-title: "使用 n8n 创建每日安排提醒"
+title: "Morning Greeting with n8n"
 date: "2025-10-09"
 tools: ["n8n", "deepseek"]
-category: "生活"
+category: "LIFE"
 action_button:
   text: "Visit n8n"
   url: "https://openai.com/codex/"
