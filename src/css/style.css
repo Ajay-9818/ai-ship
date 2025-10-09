@@ -181,13 +181,13 @@ a:focus {
   position: relative;
 }
 .site-title__text { line-height: 1; }
-.site-title__icon { line-height: 0; display: inline-flex; align-items: flex-end; position: relative; }
+.site-title__icon { line-height: 0; display: inline-flex; align-items: flex-end; position: relative; transform: translateY(6px); }
 .icon-sailboat {
   width: 2.2em; height: 2.2em; stroke-width: 1;
   transform-origin: center center; will-change: transform;
   fill: none; /* 强制无填充 */
   display: block;
-  transform: translateY(6px); /* 下移以与文字基线视觉对齐 */
+}
 }
 }
 /* 船只动画运行时将通过 JS 设置 transform */
