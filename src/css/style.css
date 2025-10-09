@@ -187,7 +187,8 @@ a:focus {
   transform-origin: center center; will-change: transform;
   fill: none; /* 强制无填充 */
   display: block;
-  margin-bottom: -0.32em; /* 再下移微调 */
+  transform: translateY(6px); /* 下移以与文字基线视觉对齐 */
+}
 }
 /* 船只动画运行时将通过 JS 设置 transform */
 
