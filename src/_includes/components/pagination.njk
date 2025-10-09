@@ -1,5 +1,26 @@
 {% macro render(pagination, lang) %}
-  {% if pagination.hrefs and pagination.hrefs | length > 1 %}
-    {{ paginationNav(pagination, lang) | safe }}
+  {% if pagination and pagination.hrefs and pagination.hrefs | length > 1 %}
+    {% set currentPage = pagination.pageNumber or 0 %}
+    {% set total = pagination.hrefs | length %}
+    <nav class="pagination" aria-label="{{ 'pagination.nav' | t(lang) }}">
+      {% if currentPage > 0 %}
+        <a class="prev" href="{{ pagination.hrefs[currentPage - 1] }}">{{ 'pagination.prev' | t(lang) }}</a>
+      {% else %}
+        <span class="prev is-disabled">{{ 'pagination.prev' | t(lang) }}</span>
+      {% endif %}
+      <ol>
+        {% for href in pagination.hrefs %}
+          {% set index = loop.index0 %}
+          <li>
+            <a href="{{ href }}"{% if index == currentPage %} aria-current="page" class="is-active"{% endif %}>{{ loop.index }}</a>
+          </li>
+        {% endfor %}
+      </ol>
+      {% if currentPage < total - 1 %}
+        <a class="next" href="{{ pagination.hrefs[currentPage + 1] }}">{{ 'pagination.next' | t(lang) }}</a>
+      {% else %}
+        <span class="next is-disabled">{{ 'pagination.next' | t(lang) }}</span>
+      {% endif %}
+    </nav>
   {% endif %}
 {% endmacro %}
