@@ -34,6 +34,16 @@ module.exports = {
     title: 'N8N',
     svg: 'https://unpkg.com/@lobehub/icons-static-svg@latest/icons/n8n-color.svg'
   },
+  groq: {
+    symbolId: 'icon-groq',
+    title: 'Groq',
+    svg: 'https://unpkg.com/@lobehub/icons-static-svg@latest/icons/groq.svg'
+  },
+  kimi: {
+    symbolId: 'icon-kimi',
+    title: 'Kimi',
+    svg: 'https://unpkg.com/@lobehub/icons-static-svg@latest/icons/kimi-color.svg'
+  },
   __default: {
     symbolId: 'icon-generic',
     title: 'AI Tool',

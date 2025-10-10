@@ -2,7 +2,7 @@
 title: "Morning Greeting with n8n"
 date: "2025-10-09"
 tools: ["n8n", "deepseek"]
-category: "LIFE"
+category: "Life"
 action_button:
   text: "Visit n8n"
   url: "https://openai.com/codex/"
