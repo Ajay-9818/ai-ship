@@ -12,7 +12,8 @@
     "build:assets": "npm-run-all build:css build:js",
     "eleventy:build": "npx @11ty/eleventy",
     "eleventy:serve": "npx @11ty/eleventy --serve",
-    "build": "run-s clean download:icons build:icons build:assets eleventy:build",
+    "translate:articles": "node scripts/translate-articles.js",
+    "build": "run-s clean download:icons build:icons translate:articles build:assets eleventy:build",
     "watch:css": "npx tailwindcss -i ./src/css/style.css -o ./src/static/assets/main.css --watch",
     "watch:js": "node scripts/copy-js.js --watch",
     "watch:eleventy": "npx @11ty/eleventy --serve",
@@ -32,6 +33,7 @@
     "postcss": "^8.5.6",
     "prettier": "^3.6.2",
     "svgstore": "^3.0.1",
-    "tailwindcss": "^3.4.14"
+    "tailwindcss": "^3.4.14",
+    "@openai/codex-sdk": "^0.46.0"
   }
 }
