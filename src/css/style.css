@@ -301,7 +301,7 @@ a:focus {
 
 .case-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: clamp(1.5rem, 3vw, 2.5rem);
 }
 
@@ -321,6 +321,7 @@ a:focus {
   flex-direction: column;
   gap: 0.8rem;
   position: relative;
+  min-width: 0;
 }
 
 .case-card__header {
@@ -427,6 +428,7 @@ a:focus {
   flex-wrap: wrap;
   gap: 0.75rem;
   align-items: center;
+  min-width: 0;
 }
 
 .btn {
@@ -488,6 +490,7 @@ a:focus {
 
 .case-card__prompt-body {
   margin-top: 0.75rem;
+  min-width: 0;
 }
 
 .case-card__prompt-summary-only {
@@ -503,6 +506,7 @@ a:focus {
   transform: translateY(-6px);
   transition: height 220ms ease, opacity 200ms ease, transform 220ms ease;
   pointer-events: none;
+  min-width: 0;
 }
 
 .case-card__prompt-full.is-open {
@@ -524,6 +528,11 @@ a:focus {
   border-radius: 12px;
   padding: 1.5rem;
   border: 1px solid rgba(0, 0, 0, 0.08);
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
 }
 
 :root[data-theme='dark'] .case-card__prompt-well {
@@ -533,6 +542,8 @@ a:focus {
 
 .case-card__prompt-code {
   position: relative;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .prompt-copy {
@@ -590,9 +601,11 @@ a:focus {
   background: transparent;
   border-radius: 8px;
   padding: 0;
-  overflow-x: auto;
+  overflow-x: visible;
   font-size: 0.85rem;
   margin: 0;
+  min-width: 100%;
+  max-width: 100%;
 }
 
 :root[data-theme='dark'] .case-card__prompt pre {
