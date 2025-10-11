@@ -262,6 +262,7 @@ const initControls = () => {
   document.querySelectorAll('[data-lang]').forEach((item) => {
     item.addEventListener('click', () => {
       const lang = item.dataset.lang;
+      const targetUrl = item.dataset.langUrl;
 
       // 移除所有语言菜单项的激活状态
       document.querySelectorAll('[data-lang]').forEach(el => {
@@ -271,7 +272,12 @@ const initControls = () => {
       // 设置当前项为激活状态
       item.classList.add('is-active');
 
-      // 跳转到对应语言页面
+      if (targetUrl) {
+        window.location.href = targetUrl;
+        return;
+      }
+
+      // 跳转到对应语言首页
       if (lang === 'zh') {
         window.location.href = '/';
       } else {

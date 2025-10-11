@@ -45,7 +45,8 @@
         <div class="control-menu" data-menu="language">
             {% for lang in languageList %}
               {% set langData = site.languages[lang] or {} %}
-              <button type="button" class="menu-item{% if lang == currentLang %} is-active{% endif %}" data-lang="{{ lang }}">{{ langData.label or lang | upper }}</button>
+              {% set langUrl = langLinks and langLinks[lang] %}
+              <button type="button" class="menu-item{% if lang == currentLang %} is-active{% endif %}" data-lang="{{ lang }}"{% if langUrl %} data-lang-url="{{ langUrl }}"{% endif %}>{{ langData.label or lang | upper }}</button>
             {% endfor %}
         </div>
         </div>

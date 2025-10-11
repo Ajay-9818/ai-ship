@@ -1,0 +1,30 @@
+---
+layout: layouts/base.njk
+---
+{% set currentLang = page.lang or lang or site.defaultLang or 'zh' %}
+{% from "components/card.njk" import caseCard %}
+{% set homeUrl = '/' %}
+{% if currentLang != (site.defaultLang or 'zh') %}
+  {% set homeUrl = '/' ~ currentLang ~ '/' %}
+{% endif %}
+{% set pseudoItem = {
+  data: {
+    title: title,
+    tools: tools,
+    tool_labels: tool_labels,
+    category: category,
+    action_button: action_button,
+    prompt: prompt
+  },
+  date: date,
+  templateContent: content,
+  fileSlug: page.fileSlug
+} %}
+<section class="article-page container" aria-label="{{ 'cases.section' | t(currentLang) }}">
+  <div class="article-page__nav">
+    <a class="article-page__back btn" href="{{ homeUrl }}">{{ 'article.back' | t(currentLang) }}</a>
+  </div>
+  <div class="article-page__card">
+    {{ caseCard(pseudoItem, currentLang) | safe }}
+  </div>
+</section>
