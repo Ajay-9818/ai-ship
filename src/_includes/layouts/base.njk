@@ -11,6 +11,10 @@
 {% set currentLang = page.lang or lang or derivedLang or site.defaultLang or 'zh' %}
 {% set fallbackLang = site.defaultLang or 'zh' %}
 {% set siteLangData = site.languages[currentLang] or site.languages[fallbackLang] or site.languages.zh %}
+{% set feedPathPrefix = '' %}
+{% if currentLang != (site.defaultLang or 'zh') %}
+  {% set feedPathPrefix = '/' ~ currentLang %}
+{% endif %}
 {% set pageTitle = title or siteLangData.title %}
 {% set pageDescription = description or siteLangData.description %}
 <html lang="{{ currentLang }}" data-theme="light">
@@ -49,6 +53,20 @@
               <button type="button" class="menu-item{% if lang == currentLang %} is-active{% endif %}" data-lang="{{ lang }}"{% if langUrl %} data-lang-url="{{ langUrl }}"{% endif %}>{{ langData.label or lang | upper }}</button>
             {% endfor %}
         </div>
+        </div>
+        <div class="control-group">
+        <button type="button" class="control-btn" data-control="rss" aria-label="{{ 'controls.feed.switch' | t(currentLang) }}">
+            <svg class="control-icon" aria-hidden="true"><use href="#icon-rss" /></svg>
+        </button>
+        <div class="control-menu" data-menu="rss">
+            <a class="menu-item" href="{{ feedPathPrefix }}/feed.xml" target="_blank" rel="noopener noreferrer">{{ 'controls.feed.xml' | t(currentLang) }}</a>
+            <a class="menu-item" href="{{ feedPathPrefix }}/feed.json" target="_blank" rel="noopener noreferrer">{{ 'controls.feed.json' | t(currentLang) }}</a>
+        </div>
+        </div>
+        <div class="control-group">
+        <a class="control-btn" href="https://github.com/onevcat/ai-ship" target="_blank" rel="noopener noreferrer" aria-label="{{ 'controls.github' | t(currentLang) }}">
+            <svg class="control-icon" aria-hidden="true"><use href="#icon-github" /></svg>
+        </a>
         </div>
       </div>
     </div>

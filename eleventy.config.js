@@ -112,6 +112,11 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addCollection('cases', (collectionApi) => createCasesCollection(collectionApi, 'zh'));
   eleventyConfig.addCollection('cases_en', (collectionApi) => createCasesCollection(collectionApi, 'en'));
   eleventyConfig.addCollection('cases_jp', (collectionApi) => createCasesCollection(collectionApi, 'jp'));
+  eleventyConfig.addCollection('feedEntries', (collectionApi) => {
+    return collectionApi
+      .getFilteredByGlob('src/articles/**/*.md')
+      .sort((a, b) => (b.date || 0) - (a.date || 0));
+  });
 
   eleventyConfig.addGlobalData('buildTime', new Date());
   eleventyConfig.addGlobalData('supportedLangs', SUPPORTED_LANGS);
@@ -123,7 +128,7 @@ module.exports = function (eleventyConfig) {
       data: '_data',
       output: 'public'
     },
-    templateFormats: ['md', 'njk', 'html'],
+    templateFormats: ['md', 'njk', 'html', '11ty.js'],
     markdownTemplateEngine: 'njk',
     htmlTemplateEngine: 'njk',
     dataTemplateEngine: 'njk'
