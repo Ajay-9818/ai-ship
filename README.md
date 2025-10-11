@@ -2,7 +2,7 @@
 
 https://ai.onev.cat 的源码。
 
-静态网站，用于整理与展示我使用 AI 的案例、提示词和工作流。项目基于 Eleventy 3，采用原生 CSS/JS 与按需生成的 SVG 图标，已接入多语言框架（默认输出中文，保留英文/日文扩展位）与暗色主题切换。卡片图片支持点击后通过 modal 预览大图。
+静态网站，用于整理与展示我使用 AI 的案例、提示词和工作流。项目基于 Eleventy 3，采用原生 CSS/JS 与按需生成的 SVG 图标，已接入多语言框架（默认输出中文，支持英文/日文）与暗色主题切换。卡片图片支持点击后通过 modal 预览大图。编译时调用 Codex SDK 自动完成翻译。
 
 ## 环境要求
 
@@ -36,8 +36,8 @@ npm run build
 - 可选字段：
   - `action_button`：包含 `text` 与 `url`
   - `prompt`：用于展示在卡片下方的完整提示词
-- 若需生成英文/日文页面，请在 Front Matter 中显式添加 `lang: en` 或 `lang: jp`
-- 正文自由使用 Markdown；当正文包含图片时，生成的卡片图片会自动获得放大预览（点击或按 Enter/Space 打开 modal）
+- 若需生成英文/日文页面，请在对应文件夹（`en`, `jp`）中添加同名文章
+- 正文自由使用 Markdown；当正文包含图片时，生成的卡片图片会自动获得放大预览
 
 示例 Front Matter：
 
@@ -80,9 +80,3 @@ prompt: |
    - Build command：`npm install && npm run build`
    - Publish directory：`public`
    - 若平台网络受限，需要预先缓存 `src/icons/raw/tools/` 或放行相关 CDN
-
-## 后续方向
-
-- 扩充英文、日文文章内容，完善语言切换体验
-- 根据内容规模引入图片懒加载与结构化数据增强
-- 迁移 ESLint 配置至 Flat Config，恢复 `npm run lint` 校验
