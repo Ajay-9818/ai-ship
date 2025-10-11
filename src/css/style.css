@@ -552,7 +552,6 @@ a:focus {
 }
 
 .case-card__meta-divider {
-  color: var(--border-strong, var(--border));
   font-size: 0.85rem;
 }
 
