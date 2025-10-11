@@ -352,6 +352,7 @@ a:focus {
 .case-card__title {
   margin: 0;
   font-size: 1.35rem;
+  padding-right: clamp(3rem, 8vw, 5rem);
 }
 
 .case-card__tools {
@@ -390,6 +391,7 @@ a:focus {
   letter-spacing: 0.02em;
   opacity: 0.78;
   transition: opacity 180ms ease-in-out;
+  text-transform: uppercase;
 }
 
 .case-card:hover .case-card__badge,
