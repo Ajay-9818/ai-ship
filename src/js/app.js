@@ -186,7 +186,7 @@ const bindPromptDetails = () => {
     }
   });
 
-  document.querySelectorAll('.prompt-copy').forEach((button) => {
+  document.querySelectorAll('.copy-action').forEach((button) => {
     button.addEventListener('click', () => copyPrompt(button));
   });
 };

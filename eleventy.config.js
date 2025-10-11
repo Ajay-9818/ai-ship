@@ -1,6 +1,7 @@
 const path = require('path');
 const markdownIt = require('markdown-it');
 const SUPPORTED_LANGS = ['zh', 'en', 'jp'];
+const siteData = require('./src/_data/site.json');
 
 function resolveToolIcon(slug) {
   try {
@@ -62,6 +63,16 @@ module.exports = function (eleventyConfig) {
     const date = value instanceof Date ? value : new Date(value);
     if (Number.isNaN(date.getTime())) return '';
     return date.toISOString().slice(0, 10);
+  });
+  eleventyConfig.addFilter('absoluteUrl', (pathValue, baseValue) => {
+    if (!pathValue) return '';
+    const base = baseValue || siteData.url || '';
+    if (!base) return pathValue;
+    try {
+      return new URL(pathValue, base).toString();
+    } catch (error) {
+      return pathValue;
+    }
   });
 
   eleventyConfig.setLibrary('md', markdownIt({

@@ -18,7 +18,8 @@ layout: layouts/base.njk
   },
   date: date,
   templateContent: content,
-  fileSlug: page.fileSlug
+  fileSlug: page.fileSlug,
+  url: page.url
 } %}
 <section class="article-page container" aria-label="{{ 'cases.section' | t(currentLang) }}">
   <div class="article-page__nav">
