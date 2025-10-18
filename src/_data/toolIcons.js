@@ -44,6 +44,11 @@ module.exports = {
     title: 'Kimi',
     svg: 'https://unpkg.com/@lobehub/icons-static-svg@latest/icons/kimi-color.svg'
   },
+  obsidian: {
+    symbolId: 'icon-obsidian',
+    title: 'Obsidian',
+    svg: 'https://github.com/user-attachments/assets/696e97bd-7bdb-46ea-8696-29b99b3710f0',
+  },
   __default: {
     symbolId: 'icon-generic',
     title: 'AI Tool',
